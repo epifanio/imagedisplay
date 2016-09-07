@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>pause.png</file>
+    <file>record.png</file>
+    <file>play.png</file>
+    <file>saveinfo.png</file>
+    <file>SquadraCompasso.png</file>
+    <file>tools.png</file>
+    <file>startstop.png</file>
+    <file>600px-Brosen_windrose.svg.png</file>
+    <file>keyser-tux-wifi-logo-2300.png</file>
+    <file>quit.png</file>
+    <file>saveinfo.png</file>
+    <file>spit.png</file>
+    <file>SquadraCompasso.png</file>
+    <file>Ubuntu_connessione_Internet_.png</file>
+    <file>processing.png</file>
+    <file>defaultlogo.png</file>
+  </qresource>
+</RCC>
