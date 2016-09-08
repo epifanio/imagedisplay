@@ -33,8 +33,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>605</width>
-           <height>332</height>
+           <width>612</width>
+           <height>298</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -155,32 +155,32 @@
             </item>
             <item>
              <property name="text">
-              <string>tcp</string>
+              <string>1</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>pg</string>
+              <string>2</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>lcm</string>
+              <string>3</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>serial1</string>
+              <string>4</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>searial2</string>
+              <string>5</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>serial3</string>
+              <string>6</string>
              </property>
             </item>
            </widget>
@@ -270,7 +270,7 @@
  }</string>
             </property>
             <property name="text">
-             <string>Set</string>
+             <string>GC</string>
             </property>
            </widget>
           </item>
@@ -313,80 +313,138 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
-       <widget class="QSlider" name="ZoomStepSlider">
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="value">
-         <number>50</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>10</number>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Zoom</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="ZoomStepSlider">
+          <property name="maximum">
+           <number>200</number>
+          </property>
+          <property name="value">
+           <number>50</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+          <property name="tickInterval">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="ZoomStepspinBox">
+          <property name="maximum">
+           <number>200</number>
+          </property>
+          <property name="value">
+           <number>50</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QSpinBox" name="ZoomStepspinBox"/>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="rwd">
-        <property name="text">
-         <string>&lt;&lt;&lt;</string>
-        </property>
-        <property name="shortcut">
-         <string>Backspace</string>
-        </property>
-        <property name="autoRepeat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QSpinBox" name="ImageStepspinBox">
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>200</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="fwd">
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-        <property name="text">
-         <string>&gt;&gt;&gt;</string>
-        </property>
-        <property name="autoRepeat">
-         <bool>true</bool>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Image switch</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="ImageIndexSlider">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksBelow</enum>
+          </property>
+          <property name="tickInterval">
+           <number>500</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="ImageIndexspinBox">
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="rwd">
+          <property name="text">
+           <string>&lt;&lt;&lt;</string>
+          </property>
+          <property name="shortcut">
+           <string>Backspace</string>
+          </property>
+          <property name="autoRepeat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="ImageStepspinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>200</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="fwd">
+          <property name="focusPolicy">
+           <enum>Qt::ClickFocus</enum>
+          </property>
+          <property name="text">
+           <string>&gt;&gt;&gt;</string>
+          </property>
+          <property name="autoRepeat">
+           <bool>true</bool>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -398,7 +456,7 @@
      <x>0</x>
      <y>0</y>
      <width>838</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPreference">
