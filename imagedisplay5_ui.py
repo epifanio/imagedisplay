@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'imagedisplay5_ui.ui'
 #
-# Created by: PyQt5 UI code generator 5.5.1
+# Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,9 +26,10 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 612, 298))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 605, 332))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetNoConstraint)
@@ -249,10 +250,12 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addLayout(self.verticalLayout_5)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 838, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 838, 22))
         self.menubar.setObjectName("menubar")
         self.menuPreference = QtWidgets.QMenu(self.menubar)
         self.menuPreference.setObjectName("menuPreference")
+        self.menuFile = QtWidgets.QMenu(self.menubar)
+        self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -316,9 +319,13 @@ class Ui_MainWindow(object):
         icon8.addPixmap(QtGui.QPixmap(":/icons/icons/saveinfo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionHelp.setIcon(icon8)
         self.actionHelp.setObjectName("actionHelp")
+        self.actionDirectory = QtWidgets.QAction(MainWindow)
+        self.actionDirectory.setObjectName("actionDirectory")
         self.menuPreference.addAction(self.actionPreference)
         self.menuPreference.addAction(self.actionExit)
+        self.menuFile.addAction(self.actionDirectory)
         self.menubar.addAction(self.menuPreference.menuAction())
+        self.menubar.addAction(self.menuFile.menuAction())
         self.toolBar.addAction(self.actionTcp)
         self.toolBar.addAction(self.actionArduino)
         self.toolBar.addAction(self.actionLcm)
@@ -357,6 +364,7 @@ class Ui_MainWindow(object):
         self.rwd.setShortcut(_translate("MainWindow", "Backspace"))
         self.fwd.setText(_translate("MainWindow", ">>>"))
         self.menuPreference.setTitle(_translate("MainWindow", "Settings"))
+        self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.toolBar_2.setWindowTitle(_translate("MainWindow", "toolBar_2"))
         self.toolBar_3.setWindowTitle(_translate("MainWindow", "toolBar_3"))
@@ -369,5 +377,6 @@ class Ui_MainWindow(object):
         self.actionPause.setText(_translate("MainWindow", "pause"))
         self.actionRecord.setText(_translate("MainWindow", "record"))
         self.actionHelp.setText(_translate("MainWindow", "help"))
+        self.actionDirectory.setText(_translate("MainWindow", "Directory"))
 
 import resource5_rc

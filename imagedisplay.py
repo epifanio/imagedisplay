@@ -21,11 +21,17 @@ import os
 
 class ImageDisplay(QObject):
     def init(self):
-        self.imagepath = '/media/epi/backup1/imgs/'
-        self.imagelist = pickle.load( open('imagelist.p', 'rb'))
-        self.imageindex = 1
-        self.ZoomStepValue=50
+
+
         self.w = GuiWidget()
+
+        self.imagepath = '/media/epi/backup1/imgs/'
+        self.imagelist = pickle.load(open('imagelist.p', 'rb'))
+
+        self.imageindex = 1
+        self.ZoomStepValue = 50
+
+        self.w.actionDirectory.triggered.connect(self.getDir)
 
         self.w.ImageIndexspinBox.setMaximum(len(self.imagelist))
         self.w.ImageIndexSlider.setMaximum(len(self.imagelist))
@@ -59,13 +65,20 @@ class ImageDisplay(QObject):
 
         self.w.ImageStepspinBox.valueChanged.connect(self.setImageIndexStepValue)
 
+
+
         # Exit
         self.w.actionExit.triggered.connect(self.quitAll)
+
 
 
         self.w.show()
 
 
+    def getDir(self):
+        self.dirname = QtWidgets.QFileDialog.getExistingDirectory()
+        self.imagelist = os.listdir(self.dirname)
+        print(self.imagelist)
 
 
     def getimage(self):
@@ -119,13 +132,13 @@ class ImageDisplay(QObject):
         print(self.ZoomStepValue)
 
     def addImage(self):
-        print(os.path.join(self.imagepath,self.imagelist[self.imageindex]))
-        self.pixmap = QPixmap(os.path.join(self.imagepath,self.imagelist[self.imageindex]))
+        print(os.path.join(self.dirname, self.imagelist[self.imageindex]))
+        self.pixmap = QPixmap(os.path.join(self.dirname, self.imagelist[self.imageindex]))
         width=self.pixmap.width()*(self.ZoomStepValue/100.)
         height=self.pixmap.height()*(self.ZoomStepValue/100.)
         self.pixmap = self.pixmap.scaled(width, height, Qt.KeepAspectRatio)
         self.w.image.setPixmap(self.pixmap)
-        print(self.pixmap.width(),self.pixmap.height())
+        print(self.pixmap.width(), self.pixmap.height())
                 
         
     def quitAll(self):
