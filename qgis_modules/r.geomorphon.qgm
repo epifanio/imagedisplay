@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE qgisgrassmodule SYSTEM "http://mrcc.com/qgisgrassmodule.dtd">
+
+<qgisgrassmodule label="Calculate geomorphons from DEM (digital elevation model)" module="r.geomorphon">
+	<option key="elevation" />
+	<option key="forms" />
+	<option key="dist" />
+	<option key="skip" />
+</qgisgrassmodule>
+
+
