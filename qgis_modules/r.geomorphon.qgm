@@ -3,9 +3,28 @@
 
 <qgisgrassmodule label="Calculate geomorphons from DEM (digital elevation model)" module="r.geomorphon">
 	<option key="elevation" />
-	<option key="forms" />
-	<option key="dist" />
+	<option key="search" />
 	<option key="skip" />
+	<option key="flat" />
+	<option key="dist" />
+	<option key="forms" />
+	<option key="ternary" advanced="yes" />
+	<option key="positive" advanced="yes" />
+	<option key="negative" advanced="yes" />
+	<option key="intensity" advanced="yes" />
+	<option key="exposition" advanced="yes" />
+	<option key="range" advanced="yes" />
+	<option key="variance" advanced="yes" />
+	<option key="elongation" advanced="yes" />
+	<option key="azimuth" advanced="yes" />
+	<option key="extend" advanced="yes" />
+	<option key="width" advanced="yes" />
+	<option key="search" advanced="yes" />
+	<option key="prefix" advanced="yes" />
+	<option key="step" advanced="yes" />
+	<option key="start" advanced="yes" />
+	<flag key="m" answer="off" advanced="yes" />
+	<flag key="e" answer="off" advanced="yes" />
 </qgisgrassmodule>
 
 
