@@ -1,0 +1,210 @@
+#################### CLUSTER (Mon Dec 12 16:43:56 2016) ####################
+
+Location: project
+Mapset:   PERMANENT
+Group:    geoform
+Subgroup: geoform
+ bathyMSL_avg@PERMANENT
+ bathyMSL_min@PERMANENT
+ bathyMSL_max@PERMANENT
+Result signature file: geoform6sign4
+
+Region
+  North:   4546471.00  East:    509172.00
+  South:   4545760.00  West:    505746.00
+  Res:           1.00  Res:          1.00
+  Rows:           711  Cols:         3426  Cells: 2435886
+Mask: none
+
+Cluster parameters
+ Number of initial classes:    7
+ Minimum class size:           9
+ Minimum class separation:     0.000000
+ Percent convergence:          98.000000
+ Maximum number of iterations: 200
+
+ Row sampling interval:        7
+ Col sampling interval:        34
+
+Sample size: 6062 points
+
+
+means and standard deviations for 3 bands
+
+ means   -77.1673 -77.4804 -76.8315
+ stddev  3.44708 3.35993 3.56093
+
+
+initial means for each band
+
+class 1    -80.6143 -80.8404 -80.3924
+class 2    -79.4653 -79.7204 -79.2054
+class 3    -78.3163 -78.6004 -78.0184
+class 4    -77.1673 -77.4804 -76.8315
+class 5    -76.0182 -76.3604 -75.6445
+class 6    -74.8692 -75.2405 -74.4575
+class 7    -73.7202 -74.1205 -73.2705
+
+
+class means/stddev for each band
+
+
+class 1 (1244)
+  means  -81.3937 -81.6284 -81.1362
+  stddev 1.28722 1.3203 1.28662
+
+class 2 (1033)
+  means  -79.434 -79.6515 -79.1985
+  stddev 0.319086 0.381323 0.380017
+
+class 3 (749)
+  means  -78.3718 -78.6509 -78.0655
+  stddev 0.343634 0.431435 0.441005
+
+class 4 (530)
+  means  -77.2104 -77.5206 -76.8821
+  stddev 0.330229 0.433888 0.460992
+
+class 5 (558)
+  means  -75.9944 -76.3074 -75.6523
+  stddev 0.339031 0.447972 0.459192
+
+class 6 (723)
+  means  -74.9227 -75.22 -74.6023
+  stddev 0.30771 0.441703 0.449474
+
+class 7 (1225)
+  means  -72.0676 -72.5727 -71.5403
+  stddev 1.95788 1.88485 2.11612
+
+class distribution
+       1244       1033        749        530        558
+        723       1225
+
+######## iteration 1 ###########
+7 classes, 89.51% points stable
+class distribution
+        985       1286        726        552        558
+       1058        897
+
+######## iteration 2 ###########
+7 classes, 91.19% points stable
+class distribution
+        829       1351        799        556        666
+       1125        736
+
+######## iteration 3 ###########
+7 classes, 92.28% points stable
+class distribution
+        722       1363        865        595        766
+       1132        619
+
+######## iteration 4 ###########
+7 classes, 92.21% points stable
+class distribution
+        647       1317        966        637        902
+       1050        543
+
+######## iteration 5 ###########
+7 classes, 92.51% points stable
+class distribution
+        568       1284       1054        693       1019
+        959        485
+
+######## iteration 6 ###########
+7 classes, 93.22% points stable
+class distribution
+        473       1278       1142        748       1087
+        899        435
+
+######## iteration 7 ###########
+7 classes, 94.70% points stable
+class distribution
+        400       1256       1230        792       1116
+        876        392
+
+######## iteration 8 ###########
+7 classes, 95.58% points stable
+class distribution
+        337       1244       1299        830       1136
+        864        352
+
+######## iteration 9 ###########
+7 classes, 96.44% points stable
+class distribution
+        307       1201       1366        858       1160
+        857        313
+
+######## iteration 10 ###########
+7 classes, 96.95% points stable
+class distribution
+        281       1158       1428        887       1173
+        848        287
+
+######## iteration 11 ###########
+7 classes, 97.46% points stable
+class distribution
+        259       1128       1472        912       1193
+        829        269
+
+######## iteration 12 ###########
+7 classes, 98.05% points stable
+class distribution
+        245       1109       1496        936       1211
+        810        255
+
+########## final results #############
+7 classes (convergence=98.1%)
+
+class separability matrix
+
+
+         1     2     3     4     5     6     7
+
+  1      0
+  2    1.2     0
+  3    1.9   1.1     0
+  4    2.6   2.1   1.2     0
+  5    3.4   3.3   2.4   1.2     0
+  6    3.8   3.8   3.1   2.1   1.1     0
+  7    3.8   3.9   3.4   2.7   2.0   1.1     0
+
+
+class means/stddev for each band
+
+
+class 1 (245)
+  means  -83.593 -83.8738 -83.2865
+  stddev 1.12482 1.11733 1.17351
+
+class 2 (1109)
+  means  -80.7652 -80.9895 -80.5184
+  stddev 0.566562 0.605495 0.598895
+
+class 3 (1496)
+  means  -79.0438 -79.2843 -78.78
+  stddev 0.495179 0.522998 0.583789
+
+class 4 (936)
+  means  -77.1274 -77.4288 -76.8072
+  stddev 0.581768 0.637367 0.666083
+
+class 5 (1211)
+  means  -75.038 -75.3542 -74.6948
+  stddev 0.575388 0.647446 0.672989
+
+class 6 (810)
+  means  -72.666 -73.133 -72.1815
+  stddev 0.849782 0.910017 0.955059
+
+class 7 (255)
+  means  -68.8937 -69.5903 -68.1695
+  stddev 1.52127 1.46782 1.74315
+
+
+
+#################### CLASSES ####################
+
+7 classes, 98.05% points stable
+
+######## CLUSTER END (Mon Dec 12 16:43:56 2016) ########
