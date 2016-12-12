@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Di Stefano</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>943</width>
-    <height>776</height>
+    <width>863</width>
+    <height>823</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,8 +34,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>502</width>
-           <height>326</height>
+           <width>452</width>
+           <height>349</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -46,7 +47,10 @@
             <item>
              <widget class="QLabel" name="image">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Load Images</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -139,54 +143,105 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QSpinBox" name="ImageStepspinBox">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>200</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="rwd">
+            <property name="text">
+             <string>&lt;&lt;&lt;</string>
+            </property>
+            <property name="shortcut">
+             <string>Left</string>
+            </property>
+            <property name="autoRepeat">
+             <bool>true</bool>
+            </property>
+            <property name="autoRepeatDelay">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="fwd">
+            <property name="focusPolicy">
+             <enum>Qt::ClickFocus</enum>
+            </property>
+            <property name="text">
+             <string>&gt;&gt;&gt;</string>
+            </property>
+            <property name="shortcut">
+             <string>Right</string>
+            </property>
+            <property name="autoRepeat">
+             <bool>true</bool>
+            </property>
+            <property name="autoRepeatDelay">
+             <number>500</number>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="label_29">
+          <property name="text">
+           <string>Range</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="rangeSlider">
+          <property name="maximum">
+           <number>1000000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="rwd">
-          <property name="text">
-           <string>&lt;&lt;&lt;</string>
-          </property>
-          <property name="shortcut">
-           <string>Backspace</string>
-          </property>
-          <property name="autoRepeat">
-           <bool>true</bool>
-          </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="ImageStepspinBox">
-          <property name="minimum">
-           <number>1</number>
-          </property>
+         <widget class="QSpinBox" name="rangeSpinBox">
           <property name="maximum">
-           <number>200</number>
+           <number>1000000</number>
+          </property>
+          <property name="value">
+           <number>0</number>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="fwd">
-          <property name="focusPolicy">
-           <enum>Qt::ClickFocus</enum>
-          </property>
+         <widget class="QToolButton" name="zoomto">
           <property name="text">
-           <string>&gt;&gt;&gt;</string>
+           <string>...</string>
           </property>
-          <property name="autoRepeat">
+          <property name="icon">
+           <iconset resource="resource5.qrc">
+            <normaloff>:/icons/icons/600px-Brosen_windrose.svg.png</normaloff>:/icons/icons/600px-Brosen_windrose.svg.png</iconset>
+          </property>
+          <property name="checkable">
            <bool>true</bool>
-          </property>
-          <property name="autoDefault">
-           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -201,7 +256,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>943</width>
+     <width>863</width>
      <height>22</height>
     </rect>
    </property>
@@ -216,10 +271,24 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionDirectory"/>
+    <addaction name="actionImageDirectory"/>
+    <addaction name="actionSelect_Image_Metadata"/>
+   </widget>
+   <widget class="QMenu" name="menuProcessing">
+    <property name="title">
+     <string>Processing</string>
+    </property>
+    <widget class="QMenu" name="menuConveter">
+     <property name="title">
+      <string>Conveter</string>
+     </property>
+     <addaction name="actionASCII2Feather"/>
+    </widget>
+    <addaction name="menuConveter"/>
    </widget>
    <addaction name="menuPreference"/>
    <addaction name="menuFile"/>
+   <addaction name="menuProcessing"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -272,212 +341,843 @@
    <widget class="QWidget" name="dockWidgetContents_3">
     <layout class="QVBoxLayout" name="verticalLayout_9">
      <item>
-      <widget class="QTabWidget" name="tabWidget">
-       <property name="currentIndex">
-        <number>2</number>
+      <widget class="QTabWidget" name="metadata">
+       <property name="maximumSize">
+        <size>
+         <width>360</width>
+         <height>16777215</height>
+        </size>
        </property>
-       <widget class="QWidget" name="tab">
+       <property name="currentIndex">
+        <number>3</number>
+       </property>
+       <widget class="QWidget" name="HBC">
         <attribute name="title">
-         <string>Tab 1</string>
+         <string>HBC</string>
         </attribute>
-        <widget class="QScrollArea" name="scrollArea_3">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>12</y>
-           <width>228</width>
-           <height>541</height>
-          </rect>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_3">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>226</width>
-            <height>539</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <layout class="QGridLayout" name="gridLayout">
-             <item row="3" column="2">
-              <widget class="QLineEdit" name="imagedepth">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QScrollArea" name="scrollArea_3">
+           <property name="maximumSize">
+            <size>
+             <width>330</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_3">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>314</width>
+              <height>633</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QGroupBox" name="groupBox_3">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>Image Metadata</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_5">
+                <item row="1" column="1">
+                 <widget class="QDateTimeEdit" name="dateTimeEdit">
+                  <property name="maximumSize">
+                   <size>
+                    <width>167</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">border: 1px solid gray;
+background: rgb(231, 231, 231);
+border-radius: 5px;
+padding: 0 8px;</string>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::NoButtons</enum>
+                  </property>
+                  <property name="dateTime">
+                   <datetime>
+                    <hour>0</hour>
+                    <minute>0</minute>
+                    <second>0</second>
+                    <year>2000</year>
+                    <month>1</month>
+                    <day>1</day>
+                   </datetime>
+                  </property>
+                  <property name="displayFormat">
+                   <string>M/d/yy h:mm:ss:zzz AP</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="imagenorth">
+                  <property name="maximumSize">
+                   <size>
+                    <width>167</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QLineEdit" name="imagetime">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_22">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <stylestrategy>PreferDefault</stylestrategy>
+                   </font>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="text">
+                   <string>Image Name</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="Rolllabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Water Depth</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QLineEdit" name="altimeter">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QLineEdit" name="imagelatitude">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLineEdit" name="waterdepth">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="Rolllabel">
-               <property name="text">
-                <string>Roll</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="2">
-              <widget class="QLineEdit" name="imagepitch">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0">
+                 <widget class="QLabel" name="label_23">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>O2</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0">
+                 <widget class="QLabel" name="label_3">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Temperature</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="Depthlabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Vehicle Depth</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="1">
+                 <widget class="QLineEdit" name="O2">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="Pitchlabel">
-               <property name="text">
-                <string>Pitch</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QLineEdit" name="imagelongitude">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="1">
+                 <widget class="QLineEdit" name="turbidity">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="Lonlabel">
-               <property name="text">
-                <string>Lon</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0">
-              <widget class="QLabel" name="Headinglabel">
-               <property name="text">
-                <string>Heading</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="Depthlabel">
-               <property name="text">
-                <string>Depth</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="Latlabel">
-               <property name="text">
-                <string>Lat</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="timelabel">
-               <property name="text">
-                <string>Time</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="2">
-              <widget class="QLineEdit" name="imageheading">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="Pitchlabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Altimeter</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="1">
+                 <widget class="QLineEdit" name="chlorophyll">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="2">
-              <widget class="QLineEdit" name="imageroll">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="linklabel">
+                  <property name="styleSheet">
+                   <string notr="true">border: 1px solid gray;
+border-radius: 5px;
+padding: 0 8px;
+background: rgb(231, 231, 231);</string>
+                  </property>
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.google.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Image&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="textFormat">
+                   <enum>Qt::RichText</enum>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                  <property name="textInteractionFlags">
+                   <set>Qt::TextBrowserInteraction</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="0">
+                 <widget class="QLabel" name="label_25">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Chlorophyll</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="imageeast">
+                  <property name="maximumSize">
+                   <size>
+                    <width>167</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Altitude</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="2">
-              <widget class="QLineEdit" name="imagealtitude">
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="1">
+                 <widget class="QLineEdit" name="CDOM">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
      border: 1px solid gray;
      border-radius: 5px;
      padding: 0 8px;
      background: rgb(231, 231, 231);
  }</string>
-               </property>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="Latlabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>North</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="1">
+                 <widget class="QLineEdit" name="temperature">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="hbcdepth">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="timelabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Time</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="0">
+                 <widget class="QLabel" name="label_26">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Turbidity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0">
+                 <widget class="QLabel" name="label_24">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>CDOM</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="Lonlabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>East</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1">
+                 <widget class="QLineEdit" name="salinity">
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="Headinglabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>90</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Salinity</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
-        </widget>
+           </widget>
+          </widget>
+         </item>
+        </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="MBED">
         <attribute name="title">
-         <string>Tab 2</string>
+         <string>MBES</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_11">
+         <item>
+          <widget class="QScrollArea" name="scrollArea_4">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_4">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>312</width>
+              <height>633</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <item>
+              <widget class="QGroupBox" name="groupBox">
+               <property name="title">
+                <string>MBES</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_10">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_3">
+                  <item row="11" column="0">
+                   <widget class="QLabel" name="label_15">
+                    <property name="text">
+                     <string>Datetime</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string>Ping Number</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_4">
+                    <property name="text">
+                     <string>Ping Time</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="0">
+                   <widget class="QLabel" name="label_13">
+                    <property name="text">
+                     <string>Corrected Backcatter Value</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>Easting</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_9">
+                    <property name="text">
+                     <string>Depth</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="label_11">
+                    <property name="text">
+                     <string>Latitude</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="0">
+                   <widget class="QLabel" name="label_16">
+                    <property name="text">
+                     <string>Line</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_8">
+                    <property name="text">
+                     <string>Northing</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>Beam Number</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="label_12">
+                    <property name="text">
+                     <string>Backscatter Value</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="label_10">
+                    <property name="text">
+                     <string>Longitude</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="label_14">
+                    <property name="text">
+                     <string>True Angle</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLineEdit" name="pingtime">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="pingnumber">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="beamnumber">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QLineEdit" name="pingeasting">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLineEdit" name="pingnorthing">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLineEdit" name="pingdepth">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QLineEdit" name="pinglongitude">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QLineEdit" name="pinglatitude">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
+                   <widget class="QLineEdit" name="trueangle">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
+                   <widget class="QLineEdit" name="backscatter">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="1">
+                   <widget class="QLineEdit" name="correctedbackscatter">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="1">
+                   <widget class="QLineEdit" name="datetime">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="1">
+                   <widget class="QLineEdit" name="line">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+     border: 1px solid gray;
+     border-radius: 5px;
+     padding: 0 8px;
+     background: rgb(231, 231, 231);
+ }</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="Notes">
+        <attribute name="title">
+         <string>Notes</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
@@ -490,53 +1190,68 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>342</width>
-              <height>586</height>
+              <width>312</width>
+              <height>599</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
               <layout class="QGridLayout" name="gridLayout_2">
-               <item row="2" column="1">
-                <widget class="QComboBox" name="substratelist">
-                 <item>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>1</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>2</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>3</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>4</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>5</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>6</string>
-                  </property>
-                 </item>
+               <item row="8" column="4">
+                <widget class="QCheckBox" name="fixpeble">
+                 <property name="text">
+                  <string>fix</string>
+                 </property>
                 </widget>
                </item>
-               <item row="2" column="0">
+               <item row="6" column="1">
+                <widget class="QLabel" name="label_19">
+                 <property name="text">
+                  <string>Sand</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="2">
+                <widget class="QSlider" name="GravelSlider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksBelow</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="2">
+                <widget class="QSlider" name="SandSlider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksBelow</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="1">
+                <widget class="QLabel" name="label_21">
+                 <property name="text">
+                  <string>Peble</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLabel" name="label_17">
+                 <property name="text">
+                  <string>Mud</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
                 <widget class="QToolButton" name="subdtatecomponent">
                  <property name="styleSheet">
                   <string notr="true">QToolButton { /* all types of tool button */
@@ -582,7 +1297,7 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
+               <item row="1" column="1">
                 <widget class="QToolButton" name="geoformcomponent">
                  <property name="styleSheet">
                   <string notr="true">QToolButton { /* all types of tool button */
@@ -628,7 +1343,106 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
+               <item row="9" column="1" colspan="4">
+                <widget class="QTextEdit" name="notes"/>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLabel" name="label_18">
+                 <property name="text">
+                  <string>Clay</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="4">
+                <widget class="QCheckBox" name="fixclay">
+                 <property name="text">
+                  <string>fix</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="2">
+                <widget class="QSlider" name="ClaySlider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksBelow</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="2">
+                <widget class="QSlider" name="MudSlider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksBelow</enum>
+                 </property>
+                 <property name="tickInterval">
+                  <number>10</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2" colspan="3">
+                <widget class="QComboBox" name="substratelist">
+                 <item>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>2</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>3</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>4</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>5</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>6</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QLabel" name="label_20">
+                 <property name="text">
+                  <string>Gravel</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="4">
+                <widget class="QCheckBox" name="fixmud">
+                 <property name="text">
+                  <string>fix</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2" colspan="3">
                 <widget class="QComboBox" name="geoformlist">
                  <item>
                   <property name="text">
@@ -667,8 +1481,112 @@
                  </item>
                 </widget>
                </item>
-               <item row="3" column="0" colspan="2">
-                <widget class="QTextEdit" name="textEdit"/>
+               <item row="8" column="2">
+                <widget class="QSlider" name="PebleSlider">
+                 <property name="maximum">
+                  <number>100</number>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="tickPosition">
+                  <enum>QSlider::TicksBelow</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="4">
+                <widget class="QCheckBox" name="fixgravel">
+                 <property name="text">
+                  <string>fix</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="4">
+                <widget class="QCheckBox" name="fixsand">
+                 <property name="text">
+                  <string>fix</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="3">
+                <widget class="QLineEdit" name="mud">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="3">
+                <widget class="QLineEdit" name="clay">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="3">
+                <widget class="QLineEdit" name="sand">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="3">
+                <widget class="QLineEdit" name="gravel">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="3">
+                <widget class="QLineEdit" name="peble">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>30</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -676,295 +1594,193 @@
            </widget>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="submit">
+           <property name="text">
+            <string>Tag</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_3">
+       <widget class="QWidget" name="tab">
         <attribute name="title">
-         <string>Page</string>
+         <string>GT</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_11">
+        <layout class="QVBoxLayout" name="verticalLayout_13">
          <item>
-          <widget class="QScrollArea" name="scrollArea_4">
-           <property name="widgetResizable">
-            <bool>true</bool>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>Line Buffer</string>
            </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_4">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>342</width>
-              <height>586</height>
-             </rect>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_10">
-             <item>
-              <layout class="QGridLayout" name="gridLayout_3">
-               <item row="11" column="0">
-                <widget class="QLabel" name="label_15">
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="3" column="0">
+               <widget class="QComboBox" name="gtvector_type">
+                <item>
                  <property name="text">
-                  <string>Datetime</string>
+                  <string>SHP</string>
                  </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_5">
+                </item>
+                <item>
                  <property name="text">
-                  <string>Ping Number</string>
+                  <string>GeoJson</string>
                  </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_4">
+                </item>
+                <item>
                  <property name="text">
-                  <string>Ping Time</string>
+                  <string>KML</string>
                  </property>
-                </widget>
-               </item>
-               <item row="10" column="0">
-                <widget class="QLabel" name="label_13">
-                 <property name="text">
-                  <string>Corrected Backcatter Value</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_7">
-                 <property name="text">
-                  <string>Easting</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="label_9">
-                 <property name="text">
-                  <string>Depth</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="label_11">
-                 <property name="text">
-                  <string>Latitude</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="12" column="0">
-                <widget class="QLabel" name="label_16">
-                 <property name="text">
-                  <string>Line</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_8">
-                 <property name="text">
-                  <string>Northing</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_6">
-                 <property name="text">
-                  <string>Beam Number</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="0">
-                <widget class="QLabel" name="label_12">
-                 <property name="text">
-                  <string>Backscatter Value</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="label_10">
-                 <property name="text">
-                  <string>Longitude</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="0">
-                <widget class="QLabel" name="label_14">
-                 <property name="text">
-                  <string>True Angle</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="pingtime">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="pingnumber">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="beamnumber">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="pingeasting">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="pingnorthing">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLineEdit" name="pingdepth">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1">
-                <widget class="QLineEdit" name="pinglongitude">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="1">
-                <widget class="QLineEdit" name="pinglatitude">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="1">
-                <widget class="QLineEdit" name="trueangle">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="1">
-                <widget class="QLineEdit" name="backscatter">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="1">
-                <widget class="QLineEdit" name="correctedbackscatter">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="1">
-                <widget class="QLineEdit" name="datetime">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="12" column="1">
-                <widget class="QLineEdit" name="line">
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit {
-     border: 1px solid gray;
-     border-radius: 5px;
-     padding: 0 8px;
-     background: rgb(231, 231, 231);
- }</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <spacer name="verticalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
+                </item>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <item>
+                 <widget class="QLabel" name="label_30">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>15</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="text">
+                   <string>+</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="frontbuffer">
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_31">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>15</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="text">
+                   <string>-</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="rearbuffer">
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="6" column="1">
+               <widget class="QPushButton" name="query">
+                <property name="text">
+                 <string>Save</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QDoubleSpinBox" name="bufferwidth"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_28">
+                <property name="text">
+                 <string>Length (# img)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_27">
+                <property name="text">
+                 <string>Width (m)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <item>
+                 <widget class="QLineEdit" name="gtvector"/>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="gtvector_select">
+                  <property name="text">
+                   <string>...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="6" column="0">
+               <widget class="QCheckBox" name="syncGE">
+                <property name="text">
+                 <string>GE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QPushButton" name="append_geometry">
+                <property name="text">
+                 <string>Append Geometry</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QComboBox" name="comboBox_2"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>409</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -1069,9 +1885,24 @@
     <string>help</string>
    </property>
   </action>
-  <action name="actionDirectory">
+  <action name="actionImageDirectory">
    <property name="text">
-    <string>Directory</string>
+    <string>Select Image Directory</string>
+   </property>
+  </action>
+  <action name="actionASCII_Converter">
+   <property name="text">
+    <string>ASCII Converter</string>
+   </property>
+  </action>
+  <action name="actionASCII2Feather">
+   <property name="text">
+    <string>ASCII to Feather</string>
+   </property>
+  </action>
+  <action name="actionSelect_Image_Metadata">
+   <property name="text">
+    <string>Select Image Metadata</string>
    </property>
   </action>
  </widget>
