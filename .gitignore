@@ -93,3 +93,9 @@ ENV/
 # PyCharm
 .idea/
 
+GB_selection_log_735768.csv
+GB_selection_log_735768.h5
+histogram.png
+hyspomatric_curve.png
+test.kml
+width_function.png
