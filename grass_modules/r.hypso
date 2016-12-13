@@ -19,37 +19,37 @@
 #               
 #
 ################################################################################
-#%module
-#% description: Outputs a hypsometric and hypsographic graph.
-#% keyword: raster
-#%end
+# %module
+# % description: Outputs a hypsometric and hypsographic graph.
+# % keyword: raster
+# %end
 
-#%option G_OPT_R_ELEV
-#% key: map
-#% required: yes
-#%end
+# %option G_OPT_R_ELEV
+# % key: map
+# % required: yes
+# %end
 
-#%option G_OPT_F_OUTPUT
-#% key: image
-#% key_desc: image
-#% description: Name for output graph file (png)
-#% required: yes
-#%end
+# %option G_OPT_F_OUTPUT
+# % key: image
+# % key_desc: image
+# % description: Name for output graph file (png)
+# % required: yes
+# %end
 
-#%flag
-#% key: a
-#% description: Generate hypsometric curve
-#%end
+# %flag
+# % key: a
+# % description: Generate hypsometric curve
+# %end
 
-#%flag
-#% key: b
-#% description: Generate hypsographic curve
-#%end
+# %flag
+# % key: b
+# % description: Generate hypsographic curve
+# %end
 
-#%flag
-#% key: c
-#% description: interactive plot
-#%end
+# %flag
+# % key: c
+# % description: interactive plot
+# %end
 
 from __future__ import print_function
 import sys
@@ -57,14 +57,18 @@ import sys
 # import matplotlib #required by windows
 # matplotlib.use('wx') #required by windows
 import matplotlib.pyplot as plt
+
 try:
     import grass.script as grass
 except ImportError:
-    print("grass environment not set ... to run this module outside a grass session you need to export the grass environment. Trying forcing it")
+    print(
+        "grass environment not set ... to run this module outside a grass session you need to export the grass environment. Trying forcing it")
     import os
+
     sys.path.append('/usr/local/grass-7.3.svn/etc/python')
     os.environ["GISBASE"] = "/usr/local/grass-7.3.svn"
     import grass.script as grass
+
 import numpy as np
 from operator import itemgetter
 
@@ -91,14 +95,14 @@ def main():
             zn[i, 2] = zn[i, 1]
         else:
             zn[i, 0], zn[i, 1] = map(float, stats[i].split(' '))
-            zn[i, 2] = zn[i, 1] + zn[i-1, 2]
+            zn[i, 2] = zn[i, 1] + zn[i - 1, 2]
 
     totcell = sum(zn[:, 1])
     print("Tot. cells", totcell)
 
     for i in range(len(stats)):
         zn[i, 3] = 1 - (zn[i, 2] / sum(zn[:, 1]))
-        zn[i, 4] = zn[i, 3] * (((res**2)/1000000)*sum(zn[:, 1]))
+        zn[i, 4] = zn[i, 3] * (((res ** 2) / 1000000) * sum(zn[:, 1]))
         zn[i, 5] = ((zn[i, 0] - min(zn[:, 0])) / (max(zn[:, 0]) - min(zn[:, 0])))
         kl[i, 0] = zn[i, 0]
         kl[i, 1] = 1 - (zn[i, 2] / totcell)
@@ -121,39 +125,39 @@ def main():
     if flags['a']:
         plotImage(zn[:, 3],
                   zn[:, 5],
-                  options['image']+'_Hypsometric.png', '-', 'A(i) / A', 'Z(i) / Zmax', 'Hypsometric Curve',
+                  options['image'] + '_Hypsometric.png', '-', 'A(i) / A', 'Z(i) / Zmax', 'Hypsometric Curve',
                   interactive=interactive)
     if flags['b']:
         plotImage(zn[:, 4],
                   zn[:, 0],
-                  options['image']+'_Hypsographic.png', '-', 'A [km^2]', 'Z [m.slm]', 'Hypsographic Curve',
+                  options['image'] + '_Hypsographic.png', '-', 'A [km^2]', 'Z [m.slm]', 'Hypsographic Curve',
                   interactive=interactive)
 
     print("===========================")
     print("Hypsometric | quantiles")
     print("===========================")
-    print('%.0f' %findint(kl, 0.025), "|", 0.025)
-    print('%.0f' %findint(kl, 0.05), "|", 0.05)
-    print('%.0f' %findint(kl, 0.1), "|", 0.1)
-    print('%.0f' %findint(kl, 0.25), "|", 0.25)
-    print('%.0f' %findint(kl, 0.5), "|", 0.5)
-    print('%.0f' %findint(kl, 0.75), "|", 0.75)
-    print('%.0f' %findint(kl, 0.9), "|", 0.9)
-    print('%.0f' %findint(kl, 0.975), "|", 0.975)
+    print('%.0f' % findint(kl, 0.025), "|", 0.025)
+    print('%.0f' % findint(kl, 0.05), "|", 0.05)
+    print('%.0f' % findint(kl, 0.1), "|", 0.1)
+    print('%.0f' % findint(kl, 0.25), "|", 0.25)
+    print('%.0f' % findint(kl, 0.5), "|", 0.5)
+    print('%.0f' % findint(kl, 0.75), "|", 0.75)
+    print('%.0f' % findint(kl, 0.9), "|", 0.9)
+    print('%.0f' % findint(kl, 0.975), "|", 0.975)
     print('\n')
     print('Done!')
     # print(prc)
 
 
 def findint(kl, f):
-    Xf = np.abs(kl-f)
+    Xf = np.abs(kl - f)
     Xf = np.where(Xf == Xf.min())
     item = itemgetter(0)(Xf)
     Xf = item[0]  # added this further step to handle the case the function has 2 min
-    z1 = kl[float(Xf)][0] 
-    z2 = kl[float(Xf-1)][0]
-    f1 = kl[float(Xf)][1] 
-    f2 = kl[float(Xf-1)][1] 
+    z1 = kl[float(Xf)][0]
+    z2 = kl[float(Xf - 1)][0]
+    f1 = kl[float(Xf)][1]
+    f2 = kl[float(Xf - 1)][1]
     z = z1 + ((z2 - z1) / (f2 - f1)) * (f - f1)
     return z
 
@@ -166,14 +170,12 @@ def plotImage(x, y, image, type, xlabel, ylabel, title, interactive):
     plt.ylim(min(y), max(y))
     plt.title(title)
     plt.grid(True)
+    plt.savefig(image)
     if interactive:
         plt.show()
-    plt.savefig(image)
-    plt.close('all') 
-    
+    plt.close('all')
+
+
 if __name__ == "__main__":
     options, flags = grass.parser()
     sys.exit(main())
-
-
-
