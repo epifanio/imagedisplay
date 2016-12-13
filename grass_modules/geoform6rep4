@@ -1,19 +1,19 @@
-#################### CLUSTER (Mon Dec 12 16:43:56 2016) ####################
+#################### CLUSTER (Tue Dec 13 03:58:38 2016) ####################
 
 Location: project
-Mapset:   PERMANENT
+Mapset:   copy
 Group:    geoform
 Subgroup: geoform
- bathyMSL_avg@PERMANENT
- bathyMSL_min@PERMANENT
- bathyMSL_max@PERMANENT
+ bathy_avg@copy
+ bathy_min@copy
+ bathy_max@copy
 Result signature file: geoform6sign4
 
 Region
-  North:   4546471.00  East:    509172.00
-  South:   4545760.00  West:    505746.00
-  Res:           1.00  Res:          1.00
-  Rows:           711  Cols:         3426  Cells: 2435886
+  North:   4546288.12  East:    506805.35
+  South:   4546033.54  West:    506433.83
+  Res:           1.32  Res:          0.99
+  Rows:           193  Cols:          375  Cells: 72375
 Mask: none
 
 Cluster parameters
@@ -23,138 +23,120 @@ Cluster parameters
  Percent convergence:          98.000000
  Maximum number of iterations: 200
 
- Row sampling interval:        7
- Col sampling interval:        34
+ Row sampling interval:        1
+ Col sampling interval:        3
 
-Sample size: 6062 points
+Sample size: 24125 points
 
 
 means and standard deviations for 3 bands
 
- means   -77.1673 -77.4804 -76.8315
- stddev  3.44708 3.35993 3.56093
+ means   -79.2354 -79.5303 -78.906
+ stddev  1.00798 0.963558 1.13566
 
 
 initial means for each band
 
-class 1    -80.6143 -80.8404 -80.3924
-class 2    -79.4653 -79.7204 -79.2054
-class 3    -78.3163 -78.6004 -78.0184
-class 4    -77.1673 -77.4804 -76.8315
-class 5    -76.0182 -76.3604 -75.6445
-class 6    -74.8692 -75.2405 -74.4575
-class 7    -73.7202 -74.1205 -73.2705
+class 1    -80.2434 -80.4939 -80.0416
+class 2    -79.9074 -80.1727 -79.6631
+class 3    -79.5714 -79.8515 -79.2845
+class 4    -79.2354 -79.5303 -78.906
+class 5    -78.8994 -79.2092 -78.5274
+class 6    -78.5634 -78.888 -78.1489
+class 7    -78.2274 -78.5668 -77.7703
 
 
 class means/stddev for each band
 
 
-class 1 (1244)
-  means  -81.3937 -81.6284 -81.1362
-  stddev 1.28722 1.3203 1.28662
+class 1 (3163)
+  means  -80.8141 -81.1249 -80.4668
+  stddev 0.822925 0.961797 0.74256
 
-class 2 (1033)
-  means  -79.434 -79.6515 -79.1985
-  stddev 0.319086 0.381323 0.380017
+class 2 (2472)
+  means  -79.9024 -80.1115 -79.6648
+  stddev 0.110838 0.238818 0.227119
 
-class 3 (749)
-  means  -78.3718 -78.6509 -78.0655
-  stddev 0.343634 0.431435 0.441005
+class 3 (4714)
+  means  -79.5618 -79.7384 -79.3636
+  stddev 0.10461 0.215797 0.209871
 
-class 4 (530)
-  means  -77.2104 -77.5206 -76.8821
-  stddev 0.330229 0.433888 0.460992
+class 4 (5485)
+  means  -79.2221 -79.402 -79.0093
+  stddev 0.109422 0.224603 0.22565
 
-class 5 (558)
-  means  -75.9944 -76.3074 -75.6523
-  stddev 0.339031 0.447972 0.459192
+class 5 (2875)
+  means  -78.9138 -79.2226 -78.5732
+  stddev 0.120106 0.282031 0.312362
 
-class 6 (723)
-  means  -74.9227 -75.22 -74.6023
-  stddev 0.30771 0.441703 0.449474
+class 6 (1848)
+  means  -78.56 -78.9711 -78.0934
+  stddev 0.115507 0.321499 0.323236
 
-class 7 (1225)
-  means  -72.0676 -72.5727 -71.5403
-  stddev 1.95788 1.88485 2.11612
+class 7 (3568)
+  means  -77.5719 -78.1742 -76.9221
+  stddev 0.681138 0.716609 0.841485
 
 class distribution
-       1244       1033        749        530        558
-        723       1225
+       3163       2472       4714       5485       2875
+       1848       3568
 
 ######## iteration 1 ###########
-7 classes, 89.51% points stable
+7 classes, 86.41% points stable
 class distribution
-        985       1286        726        552        558
-       1058        897
+       1835       3947       4675       5419       2708
+       2991       2550
 
 ######## iteration 2 ###########
-7 classes, 91.19% points stable
+7 classes, 90.78% points stable
 class distribution
-        829       1351        799        556        666
-       1125        736
+       1167       4224       5204       5293       2994
+       3222       2021
 
 ######## iteration 3 ###########
-7 classes, 92.28% points stable
+7 classes, 93.57% points stable
 class distribution
-        722       1363        865        595        766
-       1132        619
+        964       3886       5729       5485       3131
+       3165       1765
 
 ######## iteration 4 ###########
-7 classes, 92.21% points stable
+7 classes, 94.59% points stable
 class distribution
-        647       1317        966        637        902
-       1050        543
+        878       3563       6014       5845       3191
+       3022       1612
 
 ######## iteration 5 ###########
-7 classes, 92.51% points stable
+7 classes, 95.94% points stable
 class distribution
-        568       1284       1054        693       1019
-        959        485
+        831       3366       6138       6145       3303
+       2824       1518
 
 ######## iteration 6 ###########
-7 classes, 93.22% points stable
+7 classes, 96.70% points stable
 class distribution
-        473       1278       1142        748       1087
-        899        435
+        806       3207       6209       6407       3409
+       2638       1449
 
 ######## iteration 7 ###########
-7 classes, 94.70% points stable
+7 classes, 97.25% points stable
 class distribution
-        400       1256       1230        792       1116
-        876        392
+        792       3082       6260       6627       3515
+       2450       1399
 
 ######## iteration 8 ###########
-7 classes, 95.58% points stable
+7 classes, 97.97% points stable
 class distribution
-        337       1244       1299        830       1136
-        864        352
+        783       2999       6303       6784       3576
+       2341       1339
 
 ######## iteration 9 ###########
-7 classes, 96.44% points stable
+7 classes, 98.53% points stable
 class distribution
-        307       1201       1366        858       1160
-        857        313
-
-######## iteration 10 ###########
-7 classes, 96.95% points stable
-class distribution
-        281       1158       1428        887       1173
-        848        287
-
-######## iteration 11 ###########
-7 classes, 97.46% points stable
-class distribution
-        259       1128       1472        912       1193
-        829        269
-
-######## iteration 12 ###########
-7 classes, 98.05% points stable
-class distribution
-        245       1109       1496        936       1211
-        810        255
+        773       2959       6314       6908       3617
+       2257       1297
 
 ########## final results #############
-7 classes (convergence=98.1%)
+7 classes (convergence=98.5%)
 
 class separability matrix
 
@@ -162,49 +144,49 @@ class separability matrix
          1     2     3     4     5     6     7
 
   1      0
-  2    1.2     0
-  3    1.9   1.1     0
-  4    2.6   2.1   1.2     0
-  5    3.4   3.3   2.4   1.2     0
-  6    3.8   3.8   3.1   2.1   1.1     0
-  7    3.8   3.9   3.4   2.7   2.0   1.1     0
+  2    1.3     0
+  3    2.1   0.9     0
+  4    2.7   1.6   0.9     0
+  5    2.6   1.9   1.4   0.8     0
+  6    2.9   2.4   2.1   1.6   0.8     0
+  7    3.1   2.8   2.6   2.3   1.6   0.9     0
 
 
 class means/stddev for each band
 
 
-class 1 (245)
-  means  -83.593 -83.8738 -83.2865
-  stddev 1.12482 1.11733 1.17351
+class 1 (773)
+  means  -82.103 -82.6026 -81.5034
+  stddev 0.616153 0.551017 0.754733
 
-class 2 (1109)
-  means  -80.7652 -80.9895 -80.5184
-  stddev 0.566562 0.605495 0.598895
+class 2 (2959)
+  means  -80.3297 -80.5842 -80.0547
+  stddev 0.264877 0.431187 0.33322
 
-class 3 (1496)
-  means  -79.0438 -79.2843 -78.78
-  stddev 0.495179 0.522998 0.583789
+class 3 (6314)
+  means  -79.6597 -79.8458 -79.4484
+  stddev 0.161392 0.251063 0.257643
 
-class 4 (936)
-  means  -77.1274 -77.4288 -76.8072
-  stddev 0.581768 0.637367 0.666083
+class 4 (6908)
+  means  -79.189 -79.3501 -79.0041
+  stddev 0.137485 0.182947 0.186813
 
-class 5 (1211)
-  means  -75.038 -75.3542 -74.6948
-  stddev 0.575388 0.647446 0.672989
+class 5 (3617)
+  means  -78.712 -79.1325 -78.2365
+  stddev 0.209216 0.41135 0.333413
 
-class 6 (810)
-  means  -72.666 -73.133 -72.1815
-  stddev 0.849782 0.910017 0.955059
+class 6 (2257)
+  means  -78.0024 -78.5562 -77.3886
+  stddev 0.273973 0.464683 0.475235
 
-class 7 (255)
-  means  -68.8937 -69.5903 -68.1695
-  stddev 1.52127 1.46782 1.74315
+class 7 (1297)
+  means  -76.8164 -77.5238 -76.081
+  stddev 0.499831 0.629495 0.658062
 
 
 
 #################### CLASSES ####################
 
-7 classes, 98.05% points stable
+7 classes, 98.53% points stable
 
-######## CLUSTER END (Mon Dec 12 16:43:56 2016) ########
+######## CLUSTER END (Tue Dec 13 03:58:38 2016) ########
