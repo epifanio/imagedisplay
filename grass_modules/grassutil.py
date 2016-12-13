@@ -20,8 +20,10 @@ from spectral import *
 import spectral.io.envi as envi
 spectral.settings.show_progress = False
 
+
 def atoi(text):
     return int(text) if text.isdigit() else text
+
 
 def natural_keys(text):
     """
@@ -322,7 +324,13 @@ class Raster(object):
             missinglayers = len(layers) - len(matchinglayers)
             print('Not all the layers where found, Num layer missing: %s \n Mathing layers: %s' % (missinglayers,
                                                                                                    matchinglayers))
-        
+
+    def hypso2(self, grasslayer, report=True, flags='ac'):
+        if not General().grasslayercheck(grasslayer):
+            print('Input map %s not found' % grasslayer)
+            return
+        grass.run_command('r.hypso', map=grasslayer, flags=flags, image=grasslayer)
+
     def hypso(self, grasslayer, report=True, plot=True):
         if not General().grasslayercheck(grasslayer):
             print('Input map %s not found' % grasslayer)
@@ -415,12 +423,13 @@ class Raster(object):
         plt.ylim(min(y), max(y))
         plt.title(title)
         plt.grid(True)
+        plt.savefig(image)
         try:
             plt.show()
         except:
             print("You may need to run: %matplotlib inline")
             print("the plot will be saved in %s" % image)
-        plt.savefig(image)
+        #plt.savefig(image)
         plt.close('all') 
 
     def width(self, grasslayer, report=False, plot=False):
@@ -524,6 +533,8 @@ class Raster(object):
             c = [cm(((x-X.min())/x_span)) for x in X]
             plt.bar(X[:-1], Y, color=c, width=X[1]-X[0])
             plt.grid(True)
+            image = map+'_Histogram.png'
+            plt.savefig(image)
             try:
                 plt.show()
             except ValueError:
@@ -557,7 +568,7 @@ class Raster(object):
                                   expression = '%s=if(%s==%s, %s, null())' % (outputname, cover, i, base), 
                                   overwrite=True)
                 data = self.getflatarray(outputname)
-                result[outputname]=data
+                result[outputname] = data
                 if clean:
                     pattern=output+'_*'
                     grass.run_command('g.remove', type='raster', pattern=pattern, flags='f')
@@ -568,10 +579,14 @@ class Raster(object):
             missinglayers = len(layers) - len(matchinglayers)
             print('Not all the layers where found, Num layer missing: %s \n Mathing layers: %s' % (missinglayers, matchinglayers) )
 
-    def boxplot(self, data):
+    def boxplot(self, data, save=True, plot=True):
         if type(data) != collections.OrderedDict:
             print('bad input')
             return
+        else:
+            import pandas as pd
+            df = pd.DataFrame(dict([(k, pd.Series(v)) for k, v in data.items()]))
+            print(df)
         plt.style.use('ggplot')
         names = list(data.keys())
         locations = [i for i in range(len(names))]
@@ -608,8 +623,12 @@ class Raster(object):
 
         plt.ylabel('Data')                  # y-axis label
         plt.title('Box and Whisker Plots')  # plot title
-        plt.grid(True)                    
-        plt.show()                          # render the plot
+        plt.grid(True)
+        if save:
+            image = 'boxplot.png'
+            plt.savefig(image)
+        if plot:
+            plt.show()                          # render the plot
         
     def proj(self, layer, location, mapset, reproj=False, flags=False):
         

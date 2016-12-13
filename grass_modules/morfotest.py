@@ -1,15 +1,17 @@
 import sys
 import os
 # linux
-#sys.path.append('/usr/local/grass-7.3.svn/etc/python')
-#os.environ["GISBASE"] = "/usr/local/grass-7.3.svn"
-#os.environ["GISDBASE"] = "/home/epi/GRASS7DATA"
-#os.environ["GISDBASE"] = "/home/epi/grassdata"
-#os.environ["MAPSET"] = "PERMANENT"
-##os.environ["LOCATION_NAME"] = "lonlat"
-#os.environ["LOCATION_NAME"] = "project"
-#os.environ['GISRC'] = '/tmp/grass7-epi-8352/gisrc'
-#os.environ['PATH'] = '/usr/local/grass-7.3.svn/bin:/usr/local/grass-7.3.svn/scripts:/home/epi/.grass7/addons/bin:/home/epi/.grass7/addons/scripts:/usr/local/cuda-7.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/gmt/bin'
+"""
+"""
+sys.path.append('/usr/local/grass-7.3.svn/etc/python')
+os.environ["GISBASE"] = "/usr/local/grass-7.3.svn"
+os.environ["GISDBASE"] = "/home/epi/GRASS7DATA"
+os.environ["GISDBASE"] = "/home/epi/grassdata"
+os.environ["MAPSET"] = "PERMANENT"
+#os.environ["LOCATION_NAME"] = "lonlat"
+os.environ["LOCATION_NAME"] = "project"
+os.environ['GISRC'] = '/tmp/grass7-epi-8352/gisrc'
+os.environ['PATH'] = '/usr/local/grass-7.3.svn/bin:/usr/local/grass-7.3.svn/scripts:/home/epi/.grass7/addons/bin:/home/epi/.grass7/addons/scripts:/usr/local/cuda-7.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/gmt/bin'
 
 
 # mac
@@ -22,6 +24,8 @@ import os
 #os.environ['PATH'] = '/usr/local/Cellar/grass7/7.0.5/grass-7.0.5/bin:/usr/local/Cellar/grass7/7.0.5/grass-7.0.5/scripts:/Users/epi/.grass7/addons/bin:/Users/epi/.grass7/addons/scripts:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin'
 
 # mac GRASS 7.3
+"""
+
 sys.path.append('/Applications/GRASS-7.3.app/Contents/MacOS/etc/python')
 os.environ['GISRC'] = '/var/folders/8b/tqs3j9h114v4j3lq23t833yw0000gn/T/grass7-epi-12524/gisrc'
 os.environ['PATH'] = '/usr/local/Cellar/gdal2/2.1.2/bin:/Applications/GRASS-7.3.app/Contents/MacOS/bin:/Applications/GRASS-7.3.app/Contents/MacOS/scripts:/Users/epi/.grass7/addons/bin:/Users/epi/.grass7/addons/scripts:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin'
@@ -47,7 +51,7 @@ os.environ['GRASS_GNUPLOT'] = 'gnuplot -persist'
 os.environ["GISDBASE"] = "/Users/epi/grassdata"
 # !rm -rf /Users/epi/grassdata/.DS_Store
 os.environ['DYLD_FRAMEWORK_PATH'] = '/Applications/GRASS-7.3.app/Contents/MacOS/lib'
-
+"""
 
 #os.environ['GRASS_PYTHON'] = 'python'
 #os.environ['TMPDIR'] = '/tmp/grass7-epi-5932'
@@ -84,12 +88,7 @@ rasterlist = g.glist()
 
 print(listloc, rasterlist)
 
-img = r.makemorfo(input='bathy', nnwin=9, pmwin=15, resolution=1.0, overwrite=True, remove=False)
-
-#rint(img)
-r.histo('bathy', stats=True, color='RdYlBu_r')
-#r.hypso('bathyMSL', plot=True, report=True)
-#r.width('bathyMSL', plot=True, report=True)
+img = r.makemorfo(input='bathy', nnwin=27, pmwin=39, resolution=1.0, overwrite=True, remove=False)
 imagegroup = r.rastack(img[3:])
 
 #k = 7
@@ -98,22 +97,22 @@ imagegroup = r.rastack(img[3:])
 #spectralPlot(classifier[1])
 
 
-i.group(maplist=img[:3], group='geoform', subgroup='geoform')
+i.group(maplist=img[:3], group='geoform2', subgroup='geoform2')
 
-i.cluster(group='geoform',
-          subgroup='geoform',
-          signaturefile='geoform6sign4',
-          classes=7,
-          min_size=9,
+i.cluster(group='geoform2',
+          subgroup='geoform2',
+          signaturefile='geoform5_5_15_sign2',
+          classes=5,
+          min_size=15,
           iterations=200,
-          reportfile='geoform6rep4',
+          reportfile='geoform5_5_15_rep2',
           overwrite=True)
 
-i.maxlik(group='geoform',
-         subgroup='geoform',
-         signaturefile='geoform6sign4',
-         output='geoform64_bis',
-         reject='geoform64_rej',
+i.maxlik(group='geoform2',
+         subgroup='geoform2',
+         signaturefile='geoform5_5_15_sign2',
+         output='geoform5_5_152',
+         reject='geoform5_5_15_rej2',
          overwrite=True)
 
 rasterlist = g.glist()

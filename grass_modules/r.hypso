@@ -53,11 +53,18 @@
 
 from __future__ import print_function
 import sys
-import os
-import matplotlib #required by windows
+# import os
+# import matplotlib #required by windows
 # matplotlib.use('wx') #required by windows
 import matplotlib.pyplot as plt
-import grass.script as grass
+try:
+    import grass.script as grass
+except ImportError:
+    print("grass environment not set ... to run this module outside a grass session you need to export the grass environment. Trying forcing it")
+    import os
+    sys.path.append('/usr/local/grass-7.3.svn/etc/python')
+    os.environ["GISBASE"] = "/usr/local/grass-7.3.svn"
+    import grass.script as grass
 import numpy as np
 from operator import itemgetter
 
@@ -140,7 +147,7 @@ def main():
 
 def findint(kl, f):
     Xf = np.abs(kl-f)
-    Xf = np.where(Xf==Xf.min())
+    Xf = np.where(Xf == Xf.min())
     item = itemgetter(0)(Xf)
     Xf = item[0]  # added this further step to handle the case the function has 2 min
     z1 = kl[float(Xf)][0] 
