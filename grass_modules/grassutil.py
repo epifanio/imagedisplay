@@ -180,7 +180,7 @@ class General(object):
         for match in candidates:
             print(match, ':', rep3(epsg, searchin, match, output) )
 
-    def listloc(self):
+    def listloc2(self):
         return DictTable(
         OrderedDict((i,
         sorted(
@@ -190,6 +190,19 @@ class General(object):
                                                                              '').replace("'",
                                                                                          "").split(", ")])
         ) for i in sorted(os.listdir(os.environ['GISDBASE']))))
+
+    def listloc(self):
+        locdict = OrderedDict()
+        for i in sorted(os.listdir(os.environ['GISDBASE'])):
+            if os.path.isdir(os.path.join(os.environ['GISDBASE'], i)):
+                if 'PERMANENT' in os.listdir(os.path.join(os.environ['GISDBASE'], i)):
+                    locdict[i] = sorted([k for k in str(os.listdir(os.path.join(os.environ['GISDBASE'],
+                                                                                i))).replace('[',
+                                                                                             '').replace(']',
+                                                                                                         '').replace(
+                        "'",
+                        "").split(", ")])
+        return DictTable(locdict)
 
 
     def selectraster(self):
@@ -669,12 +682,17 @@ class Raster(object):
                               memory=800, 
                               overwrite=True)
         
-    def makemorfo(self, input,nnwin=9, pmwin=15, resolution=None, overwrite=True, remove=False):
+    def makemorfo(self, input, nnwin=9, pmwin=15,
+                  st=0.1,
+                  ct=0.0001,
+                  exp=0.0,
+                  zs=1.0,
+                  resolution=None, overwrite=True, remove=False):
         r_elevation = input
-        #if resolution is not None:
-        #    grass.run_command('g.region', rast = r_elevation, flags = 'ap')
-        #else :
-        #    grass.run_command('g.region', rast = r_elevation, res=resolution, flags = 'ap')
+        if resolution is not None:
+            grass.run_command('g.region', rast = r_elevation, flags = 'ap')
+        else :
+            grass.run_command('g.region', rast = r_elevation, res=resolution, flags = 'ap')
         suffix = str(r_elevation)+'_'
         xavg = suffix+'avg'
         xmin = suffix+'min'
@@ -734,66 +752,66 @@ class Raster(object):
                               input=r_elevation,
                               output=xslope,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='slope',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("slope done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xprofc,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='profc',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("profc done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xcrosc,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='crosc',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("crosc done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xminic,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='minic',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("minic done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xmaxic,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='maxic',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("maxic done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xlongc,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='longc',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("longc done")
             vrange = grass.read_command('r.info', map=xslope, flags='r')

@@ -5,12 +5,20 @@ import os
 """
 sys.path.append('/usr/local/grass-7.3.svn/etc/python')
 os.environ["GISBASE"] = "/usr/local/grass-7.3.svn"
-os.environ["GISDBASE"] = "/home/epi/GRASS7DATA"
-os.environ["GISDBASE"] = "/home/epi/grassdata"
-os.environ["MAPSET"] = "PERMANENT"
+os.environ["GISDBASE"] = "/home/epi"
+os.environ["MAPSET"] = "copy"
 #os.environ["LOCATION_NAME"] = "lonlat"
-os.environ["LOCATION_NAME"] = "project"
-os.environ['GISRC'] = '/tmp/grass7-epi-8352/gisrc'
+os.environ["LOCATION_NAME"] = "UTM19N"
+
+gisrc = 'MAPSET: %s\n' % os.environ["MAPSET"]
+gisrc += 'GISDBASE: %s\n' % os.environ["GISDBASE"]
+gisrc += 'LOCATION_NAME: %s\n' % os.environ["LOCATION_NAME"]
+gisrc += 'GUI: text'
+
+grass_gisrc = open('/tmp/gisrc', 'w')
+grass_gisrc.write(gisrc)
+grass_gisrc.close()
+os.environ['GISRC'] = '/tmp/gisrc'
 os.environ['PATH'] = '/usr/local/grass-7.3.svn/bin:/usr/local/grass-7.3.svn/scripts:/home/epi/.grass7/addons/bin:/home/epi/.grass7/addons/scripts:/usr/local/cuda-7.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/gmt/bin'
 
 
@@ -88,7 +96,11 @@ rasterlist = g.glist()
 
 print(listloc, rasterlist)
 
-img = r.makemorfo(input='bathy', nnwin=27, pmwin=39, resolution=1.0, overwrite=True, remove=False)
+
+
+img = r.makemorfo(input='bathy', nnwin=15, pmwin=9, resolution=1.0,
+                  st=0.1, ct=0.0001, exp=0.0, zs=1.0,
+                  overwrite=True, remove=False)
 imagegroup = r.rastack(img[3:])
 
 #k = 7
@@ -97,26 +109,28 @@ imagegroup = r.rastack(img[3:])
 #spectralPlot(classifier[1])
 
 
-i.group(maplist=img[:3], group='geoform2', subgroup='geoform2')
+img.append("mosaic")
 
-i.cluster(group='geoform2',
-          subgroup='geoform2',
-          signaturefile='geoform5_5_15_sign2',
+i.group(maplist=img[3:], group='geoform4', subgroup='geoform4')
+
+i.cluster(group='geoform4',
+          subgroup='geoform4',
+          signaturefile='geoform3_5_15_sign2',
           classes=5,
           min_size=15,
           iterations=200,
-          reportfile='geoform5_5_15_rep2',
+          reportfile='geoform3_5_15_rep2',
           overwrite=True)
 
-i.maxlik(group='geoform2',
-         subgroup='geoform2',
-         signaturefile='geoform5_5_15_sign2',
-         output='geoform5_5_152',
-         reject='geoform5_5_15_rej2',
+i.maxlik(group='geoform4',
+         subgroup='geoform4',
+         signaturefile='geoform3_5_15_sign2',
+         output='geoform3_5_152',
+         reject='geoform3_5_15_rej2',
          overwrite=True)
 
 rasterlist = g.glist()
 
 print(rasterlist)
 
-grass_img = Grass2img(['geoform64_bis'], tmpdir='lik4').makeimg()
+grass_img = Grass2img(['geoform3_5_152'], tmpdir='lik4').makeimg()
