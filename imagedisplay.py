@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/local/bin/python36
 import sys
 
 from PyQt5.QtCore import *
@@ -21,14 +21,16 @@ from osgeo import ogr
 from osgeo import osr
 import json
 
-from ipyleaflet import (
-    Map,
-    Marker,
-    TileLayer, ImageOverlay,
-    Polyline, Polygon, Rectangle, Circle, CircleMarker,
-    GeoJSON,
-    DrawControl
-)
+#from ipyleaflet import (
+#    Map,
+#    Marker,
+#    TileLayer, ImageOverlay,
+#    Polyline, Polygon, Rectangle, Circle, CircleMarker,
+#    GeoJSON,
+#    DrawControl
+#)
+
+from htmap.htmapapp import MapDisplay
 
 class ImageDisplay(QObject):
     def init(self):
