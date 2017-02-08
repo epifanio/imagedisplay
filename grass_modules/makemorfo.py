@@ -1,9 +1,11 @@
 import sys
+
 sys.path.append('/usr/local/grass-7.3.svn/etc/python')
 import grass.script as grass
 from grass.script import array as garray
 from spectral import *
 import spectral.io.envi as envi
+
 spectral.settings.show_progress = False
 from grassutil import General, Raster, Imagery
 
@@ -11,9 +13,10 @@ g = General()
 r = Raster()
 i = Imagery()
 
-class Morphometry:
 
-    def makemorpho(self, inputs, nnwin=9, pmwin=15, resolution=None, overwrite=True, remove=False):
+class Morphometry:
+    def makemorpho(self, inputs, nnwin=9, pmwin=15, resolution=None, overwrite=True, remove=False, st=0.1, ct=0.0001,
+                   exp=0.0, zs=1.0):
         r_elevation = inputs
         if resolution is not None:
             grass.run_command('g.region', rast=r_elevation, flags='ap')
@@ -75,66 +78,66 @@ class Morphometry:
                               input=r_elevation,
                               output=xslope,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='slope',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("slope done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xprofc,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='profc',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("profc done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xcrosc,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='crosc',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("crosc done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xminic,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='minic',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("minic done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xmaxic,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='maxic',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("maxic done")
             grass.run_command('r.param.scale',
                               input=r_elevation,
                               output=xlongc,
                               size=pmwin,
-                              slope_tolerance=0.1,
-                              curvature_tolerance=0.0001,
+                              slope_tolerance=st,
+                              curvature_tolerance=ct,
                               method='longc',
-                              exponent=0.0,
-                              zscale=1.0,
+                              exponent=exp,
+                              zscale=zs,
                               overwrite=True)
             print("longc done")
             vrange = grass.read_command('r.info',
@@ -150,7 +153,6 @@ class Morphometry:
             print("xslope done")
         return img
 
-
     def writegarray(self, m, mapname):
         clust = garray.array()
         clust[...] = m
@@ -159,7 +161,6 @@ class Morphometry:
                           name=mapname)
         clust.write(mapname)
         print("newmap: %s, written to GRASS MAPSET" % mapname)
-
 
     def getkmeans(self, imagegroup='', k=5, samps=150, bands="all", outputmap=''):
         if bands == "all":
@@ -176,9 +177,9 @@ class Morphometry:
         if General().grasslayerscheck(maplist):
             imagegroup = ','.join(i for i in maplist)
             grass.run_command('i.group',
-                                group=group,
-                                subgroup=subgroup,
-                                input=maplist)
+                              group=group,
+                              subgroup=subgroup,
+                              input=maplist)
         else:
             print('not all the maps were found')
             return
@@ -190,14 +191,14 @@ class Morphometry:
             overwrite = False
         try:
             grass.run_command('i.cluster',
-                                group=group,
-                                subgroup=subgroup,
-                                signaturefile=signaturefile,
-                                classes=classes,
-                                min_size=min_size,
-                                iterations=iterations,
-                                reportfile=reportfile,
-                                overwrite=overwrite)
+                              group=group,
+                              subgroup=subgroup,
+                              signaturefile=signaturefile,
+                              classes=classes,
+                              min_size=min_size,
+                              iterations=iterations,
+                              reportfile=reportfile,
+                              overwrite=overwrite)
         except:
             print('check if the signature and/or the reportfile file already exist')
 
@@ -205,12 +206,12 @@ class Morphometry:
         if not overwrite:
             overwrite = False
         grass.run_command('i.maxlik',
-                            group=group,
-                            subgroup=subgroup,
-                            signaturefile=signaturefile,
-                            output=output,
-                            reject=reject,
-                            overwrite=overwrite)
+                          group=group,
+                          subgroup=subgroup,
+                          signaturefile=signaturefile,
+                          output=output,
+                          reject=reject,
+                          overwrite=overwrite)
 
 
         # !r.geomorphon elevation=bathyMSL_filled forms=bathyMSL_filled_forms dist=0.1 skip=0.8 --o

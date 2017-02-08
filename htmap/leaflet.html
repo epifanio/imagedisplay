@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HT-Map</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+	<style>
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+	</style>
+
+</head>
+<body>
+<div id='map'></div>
+<script>
+	var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+					'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+					'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+			mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
+	var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
+			light = L.tileLayer('mapbox.light'),
+			satellite = L.tileLayer('mapbox.satellite-afternoon'),
+			streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
+
+	var map = L.map('map', {
+		center: [39.73, -104.99],
+		zoom: 10,
+		layers: [grayscale]
+	});
+
+
+	var baseLayers = {
+		"Grayscale": grayscale,
+		"Streets": streets,
+		//"light": light,
+		// "satellite": satellite,
+		};
+
+	var overlaysObj = {},
+			categoryName,
+			categoryArray,
+			categoryLG;
+
+	for (categoryName in categories) {
+		categoryArray = categories[categoryName];
+		categoryLG = L.layerGroup(categoryArray);
+		categoryLG.categoryName = categoryName;
+		overlaysObj[categoryName] = categoryLG;
+	}
+
+
+	var myStyle = { radius: 10, fillOpacity: 1, stroke: false, weight: 1, opacity: 1, fill: true, clickable: true };
+
+	var categories = {}, category;
+
+	var collection = [{
+		"type": "FeatureCollection",
+		"features": [
+				{"type":"Feature","properties":{"category":"Aviation","Name":"Plant No 1"},"geometry":{"type":"Point","coordinates":[81.73828125,62.59334083012024]}},
+			{"type":"Feature","properties":{"category":"Electrical","Name":"Plant No 2"},"geometry":{"type":"Point","coordinates":[94.5703125,58.722598828043374]}},
+			{"type":"Feature","properties":{"category":"Military","Name":"Base 1"},"geometry":{"type":"Point","coordinates":[104.4140625,62.91523303947614]}}
+		]
+	}];
+
+	var allPoints = L.geoJson(collection, {
+		pointToLayer: function(feature, latlng){
+			return L.circleMarker(latlng, myStyle);
+		},
+		style: function(feature){
+			switch(feature.properties.category){
+				case 'Aviation' : return { color: "black" };
+				case 'Elecrtical' : return { color: "blue" };
+				case 'Military' : return { color: "red" };
+			}
+		},
+		onEachFeature: function(feature, layer){
+			layer.bindPopup(feature.properties.Name);
+			category = feature.properties.category;
+			// Initialize the category array if not already set.
+			if (typeof categories[category] === "undefined") {
+				categories[category] = [];
+			}
+			categories[category].push(layer);
+		}
+	});
+
+	var control = L.control.layers(baseLayers, overlaysObj, { collapsed: false }).addTo(map);
+
+
+
+</script>
+</body>
+</html>

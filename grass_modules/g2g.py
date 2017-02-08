@@ -10,14 +10,6 @@ from osgeo import gdal, osr
 from collections import OrderedDict
 from pyproj import Proj
 
-from ipyleaflet import (
-    Map,
-    Marker,
-    TileLayer, ImageOverlay,
-    Polyline, Polygon, Rectangle, Circle, CircleMarker,
-    GeoJSON,
-    DrawControl
-)
 
 from IPython.display import display
 from ipywidgets import interact, interactive, fixed
@@ -67,7 +59,7 @@ class Grass2img(object):
         else:
             return True
 
-    def grass2jpg(self, glayer):
+    def grass2jpg(self, glayer, mt=False):
         if self.tmpdir:
             if not os.path.exists(self.tmpdir):
                 os.makedirs(self.tmpdir)
@@ -93,6 +85,11 @@ class Grass2img(object):
                                    '-of', 'JPEG', '%s.tif' % str(self.tmpname),
                                    '%s.txt' % self.tmpname, '%s.jpg' % str(self.tmpname)])
             imagename = str(self.tmpname) + '.jpg'
+            if mt:
+                mt = open(str(self.tmpname) + '.txt', 'w')
+                mt.write(imagename)
+                mt.write(glayer)
+                mt.close()
             return imagename
         else:
             return None
@@ -208,63 +205,3 @@ class Grass2img(object):
         #map.close()
         return maptemplate
 
-
-
-def handle_draw(self, action, geo_json):
-    print(action)
-    print(geo_json)
-
-
-class Grass2Leaflet(object):
-    def __init__(self, grassimg):
-        self.grassimg = grassimg
-        self.draw_control = None
-        self.zoom = 15
-        self.center = self.centermap()
-        self.m = Map(default_tiles=TileLayer(opacity=1.0), center=self.center, zoom=self.zoom)
-
-    def centermap(self):
-        centerlat = []
-        centerlon = []
-        for i in self.grassimg:
-            centerlat.append(self.grassimg[i]['C'][0])
-            centerlon.append(self.grassimg[i]['C'][1])
-        center = (sum(centerlat) / float(len(centerlat)), sum(centerlon) / float(len(centerlon)))
-        return center
-
-    def imgoverlays(self):
-        self.leafletimg = OrderedDict()
-        for i in self.grassimg:
-            layer = ImageOverlay(url=self.grassimg[i]['raster'],
-                                 bounds=(self.grassimg[i]['LL'], self.grassimg[i]['UR']))
-            self.leafletimg[i] = layer
-
-    def render(self, draw_control=None):
-        self.imgoverlays()
-        self.dc = None
-        options = ['None']
-        self.m.add_layer(self.leafletimg[list(self.grassimg.keys())[-1]])
-        if len(self.grassimg) >= 2:
-            self.maplist = widgets.Dropdown(
-                options=options + list(self.grassimg.keys()),
-                value=list(self.grassimg.keys())[-1],
-                description='Select Layer:',
-            )
-            self.maplist.observe(self.on_value_change, names='value')
-            display(self.maplist)
-        if draw_control:
-            self.dc = DrawControl()
-            self.dc.on_draw(handle_draw)
-            self.m.add_control(self.dc)
-        display(self.m)
-        return {'map': self.m, 'drawer': self.dc}
-
-    def on_value_change(self, layername):
-        self.m.clear_layers()
-        self.m.add_layer(TileLayer(opacity=1.0))
-        if self.maplist.value != 'None':
-            self.m.add_layer(self.leafletimg[layername['new']])
-
-    def main(self):
-        self.imgoverlays()
-        self.render()

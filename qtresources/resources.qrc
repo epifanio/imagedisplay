@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/HTML5.png</file>
+    <file>icons/blumarker.png</file>
+  </qresource>
+</RCC>
