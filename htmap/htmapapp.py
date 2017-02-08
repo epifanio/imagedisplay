@@ -109,11 +109,18 @@ class MapDisplay(QObject):
         self.w.statusbar.addPermanentWidget(self.w.longitude, stretch=0)
         self.mp = 1
         self.fontsize = 6
+
         self.sc = ShepardA(self.w.shepardframeA)
         self.fc = ShepardB(self.w.shepardframeB)
 
         self.fkA = FolkA(self.w.folkframeA)
         self.fkB = FolkB(self.w.folkframeB)
+
+        self.scselected = ''
+        self.fcselected = ''
+        self.fkAselected = ''
+        self.fkBselected = ''
+
 
         self.w.increaseCS.clicked.connect(self.increaseCS)
         self.w.decreaseCS.clicked.connect(self.decreaseCS)
@@ -189,6 +196,7 @@ class MapDisplay(QObject):
                 print(float(pos.x())/source.size().width(), float(pos.y())/source.size().height())
                 if self.sc.SC1.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC1.isSelected():
+                        self.scselected = 'SC1'
                         self.sc.SC1.setBrush(QBrush(Qt.red))
                         #self.sc.SC1.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC1.setSelected(True)
@@ -207,6 +215,7 @@ class MapDisplay(QObject):
 
                 elif self.sc.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC2.isSelected():
+                        self.scselected = 'SC2'
                         self.sc.SC2.setBrush(QBrush(Qt.red))
                         #self.sc.SC2.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC2.setSelected(True)
@@ -224,6 +233,7 @@ class MapDisplay(QObject):
                         print('SC2 already selected')
                 elif self.sc.SC3.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC3.isSelected():
+                        self.scselected = 'SC3'
                         self.sc.SC3.setBrush(QBrush(Qt.red))
                         #self.sc.SC3.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC3.setSelected(True)
@@ -241,6 +251,7 @@ class MapDisplay(QObject):
                         print('SC3 already selected')
                 elif self.sc.SC4.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC4.isSelected():
+                        self.scselected = 'SC4'
                         self.sc.SC4.setBrush(QBrush(Qt.red))
                         #self.sc.SC4.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC4.setSelected(True)
@@ -258,6 +269,7 @@ class MapDisplay(QObject):
                         print('SC4 already selected')
                 elif self.sc.SC5.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC5.isSelected():
+                        self.scselected = 'SC5'
                         self.sc.SC5.setBrush(QBrush(Qt.red))
                         #self.sc.SC5.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC5.setSelected(True)
@@ -275,6 +287,7 @@ class MapDisplay(QObject):
                         print('SC5 already selected')
                 elif self.sc.SC6.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC6.isSelected():
+                        self.scselected = 'SC6'
                         self.sc.SC6.setBrush(QBrush(Qt.red))
                         #self.sc.SC6.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC6.setSelected(True)
@@ -292,6 +305,7 @@ class MapDisplay(QObject):
                         print('SC6 already selected')
                 elif self.sc.SC7.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC7.isSelected():
+                        self.scselected = 'SC7'
                         self.sc.SC7.setBrush(QBrush(Qt.red))
                         #self.sc.SC7.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC7.setSelected(True)
@@ -309,6 +323,7 @@ class MapDisplay(QObject):
                         print('SC7 already selected')
                 elif self.sc.SC8.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC8.isSelected():
+                        self.scselected = 'SC8'
                         self.sc.SC8.setBrush(QBrush(Qt.red))
                         #self.sc.SC8.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC8.setSelected(True)
@@ -326,6 +341,7 @@ class MapDisplay(QObject):
                         print('SC8 already selected')
                 elif self.sc.SC9.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC9.isSelected():
+                        self.scselected = 'SC9'
                         self.sc.SC9.setBrush(QBrush(Qt.red))
                         #self.sc.SC9.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC9.setSelected(True)
@@ -343,6 +359,7 @@ class MapDisplay(QObject):
                         print('SC9 already selected')
                 elif self.sc.SC10.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC10.isSelected():
+                        self.scselected = 'SC10'
                         self.sc.SC10.setBrush(QBrush(Qt.red))
                         #self.sc.SC10.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.sc.SC10.setSelected(True)
@@ -361,6 +378,7 @@ class MapDisplay(QObject):
 
                 else:
                     print('this is outside the triangles, set all to unselected')
+                    self.scselected = ''
                     self.sc.SC1.setSelected(False)
                     self.sc.SC2.setSelected(False)
                     self.sc.SC3.setSelected(False)
@@ -387,6 +405,7 @@ class MapDisplay(QObject):
                 print(float(pos.x())/source.size().width(), float(pos.y())/source.size().height())
                 if self.fc.SC1.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC1.isSelected():
+                        self.fcselected = 'FC1'
                         self.fc.SC1.setBrush(QBrush(Qt.red))
                         #self.sc.SC1.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fc.SC1.setSelected(True)
@@ -398,6 +417,7 @@ class MapDisplay(QObject):
 
                 elif self.fc.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.fc.SC2.isSelected():
+                        self.fcselected = 'FC2'
                         self.fc.SC2.setBrush(QBrush(Qt.red))
                         #self.sc.SC2.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fc.SC2.setSelected(True)
@@ -408,6 +428,7 @@ class MapDisplay(QObject):
                         print('FC2 already selected')
                 elif self.fc.SC3.contains(QPointF(pos.x(), pos.y())):
                     if not self.fc.SC3.isSelected():
+                        self.fcselected = 'FC3'
                         self.fc.SC3.setBrush(QBrush(Qt.red))
                         #self.sc.SC3.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fc.SC3.setSelected(True)
@@ -418,6 +439,7 @@ class MapDisplay(QObject):
                         print('FC3 already selected')
                 else:
                     print('this is outside the triangles, set all to unselected')
+                    self.fcselected = ''
                     self.fc.SC1.setSelected(False)
                     self.fc.SC2.setSelected(False)
                     self.fc.SC3.setSelected(False)
@@ -431,6 +453,7 @@ class MapDisplay(QObject):
                 print(float(pos.x())/source.size().width(), float(pos.y())/source.size().height())
                 if self.fkA.SC1.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC1.isSelected():
+                        self.fkAselected = 'FkA1'
                         self.fkA.SC1.setBrush(QBrush(Qt.red))
                         self.fkA.SC1.setSelected(True)
 
@@ -456,6 +479,7 @@ class MapDisplay(QObject):
 
                 elif self.fkA.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC2.isSelected():
+                        self.fkAselected = 'FkA2'
                         self.fkA.SC2.setBrush(QBrush(Qt.red))
                         self.fkA.SC2.setSelected(True)
 
@@ -477,6 +501,7 @@ class MapDisplay(QObject):
                         print('FC2 already selected')
                 elif self.fkA.SC3.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC3.isSelected():
+                        self.fkAselected = 'FkA3'
                         self.fkA.SC3.setBrush(QBrush(Qt.red))
                         self.fkA.SC3.setSelected(True)
 
@@ -498,6 +523,7 @@ class MapDisplay(QObject):
                         print('FC3 already selected')
                 elif self.fkA.SC4.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC4.isSelected():
+                        self.fkAselected = 'FkA4'
                         self.fkA.SC4.setBrush(QBrush(Qt.red))
                         self.fkA.SC4.setSelected(True)
                         self.fkA.SC1.setBrush(QBrush(QColor(255, 0, 0, 100)))
@@ -518,6 +544,7 @@ class MapDisplay(QObject):
                         print('FC4 already selected')
                 elif self.fkA.SC5.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC5.isSelected():
+                        self.fkAselected = 'FkA5'
                         self.fkA.SC5.setBrush(QBrush(Qt.red))
                         #self.sc.SC5.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC5.setSelected(True)
@@ -539,6 +566,7 @@ class MapDisplay(QObject):
                         print('FC5 already selected')
                 elif self.fkA.SC6.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC6.isSelected():
+                        self.fkAselected = 'FkA6'
                         self.fkA.SC6.setBrush(QBrush(Qt.red))
                         #self.sc.SC6.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC6.setSelected(True)
@@ -560,6 +588,7 @@ class MapDisplay(QObject):
                         print('FC6 already selected')
                 elif self.fkA.SC7.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC7.isSelected():
+                        self.fkAselected = 'FkA7'
                         self.fkA.SC7.setBrush(QBrush(Qt.red))
                         #self.sc.SC7.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC7.setSelected(True)
@@ -581,6 +610,7 @@ class MapDisplay(QObject):
                         print('FC7 already selected')
                 elif self.fkA.SC8.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC8.isSelected():
+                        self.fkAselected = 'FkA8'
                         self.fkA.SC8.setBrush(QBrush(Qt.red))
                         # self.sc.SC8.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC8.setSelected(True)
@@ -602,6 +632,7 @@ class MapDisplay(QObject):
                         print('FC8 already selected')
                 elif self.fkA.SC9.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC9.isSelected():
+                        self.fkAselected = 'FkA9'
                         self.fkA.SC9.setBrush(QBrush(Qt.red))
                         # self.sc.SC9.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC9.setSelected(True)
@@ -623,6 +654,7 @@ class MapDisplay(QObject):
                         print('FC9 already selected')
                 elif self.fkA.SC10.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC10.isSelected():
+                        self.fkAselected = 'FkA10'
                         self.fkA.SC10.setBrush(QBrush(Qt.red))
                         # self.sc.SC10.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC10.setSelected(True)
@@ -644,6 +676,7 @@ class MapDisplay(QObject):
                         print('FC10 already selected')
                 elif self.fkA.SC11.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC11.isSelected():
+                        self.fkAselected = 'FkA11'
                         self.fkA.SC11.setBrush(QBrush(Qt.red))
                         # self.sc.SC11.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC11.setSelected(True)
@@ -665,6 +698,7 @@ class MapDisplay(QObject):
                         print('FC11 already selected')
                 elif self.fkA.SC12.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC12.isSelected():
+                        self.fkAselected = 'FkA12'
                         self.fkA.SC12.setBrush(QBrush(Qt.red))
                         # self.sc.SC12.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC12.setSelected(True)
@@ -686,6 +720,7 @@ class MapDisplay(QObject):
                         print('FC12 already selected')
                 elif self.fkA.SC13.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC13.isSelected():
+                        self.fkAselected = 'FkA13'
                         self.fkA.SC13.setBrush(QBrush(Qt.red))
                         # self.sc.SC13.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC13.setSelected(True)
@@ -707,6 +742,7 @@ class MapDisplay(QObject):
                         print('FC13 already selected')
                 elif self.fkA.SC14.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC14.isSelected():
+                        self.fkAselected = 'FkA14'
                         self.fkA.SC14.setBrush(QBrush(Qt.red))
                         # self.sc.SC14.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC14.setSelected(True)
@@ -728,6 +764,7 @@ class MapDisplay(QObject):
                         print('FC14 already selected')
                 elif self.fkA.SC15.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC15.isSelected():
+                        self.fkAselected = 'FkA15'
                         self.fkA.SC15.setBrush(QBrush(Qt.red))
                         # self.sc.SC15.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkA.SC15.setSelected(True)
@@ -749,6 +786,7 @@ class MapDisplay(QObject):
                         print('FC15 already selected')
                 else:
                     print('this is outside the triangles, set all to unselected')
+                    self.fkAselected = ''
                     self.fkA.SC1.setSelected(False)
                     self.fkA.SC2.setSelected(False)
                     self.fkA.SC3.setSelected(False)
@@ -786,6 +824,7 @@ class MapDisplay(QObject):
                 print(float(pos.x())/source.size().width(), float(pos.y())/source.size().height())
                 if self.fkB.SC1.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC1.isSelected():
+                        self.fkBselected = 'FkB1'
                         self.fkB.SC1.setBrush(QBrush(Qt.red))
                         self.fkB.SC1.setSelected(True)
 
@@ -811,6 +850,7 @@ class MapDisplay(QObject):
 
                 elif self.fkB.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC2.isSelected():
+                        self.fkBselected = 'FkB2'
                         self.fkB.SC2.setBrush(QBrush(Qt.red))
                         self.fkB.SC2.setSelected(True)
 
@@ -832,6 +872,7 @@ class MapDisplay(QObject):
                         print('FC2 already selected')
                 elif self.fkB.SC3.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC3.isSelected():
+                        self.fkBselected = 'FkB3'
                         self.fkB.SC3.setBrush(QBrush(Qt.red))
                         self.fkB.SC3.setSelected(True)
 
@@ -853,6 +894,7 @@ class MapDisplay(QObject):
                         print('FC3 already selected')
                 elif self.fkB.SC4.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC4.isSelected():
+                        self.fkBselected = 'FkB4'
                         self.fkB.SC4.setBrush(QBrush(Qt.red))
                         self.fkB.SC4.setSelected(True)
                         self.fkB.SC1.setBrush(QBrush(QColor(255, 0, 0, 100)))
@@ -873,6 +915,7 @@ class MapDisplay(QObject):
                         print('FC4 already selected')
                 elif self.fkB.SC5.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC5.isSelected():
+                        self.fkBselected = 'FkB5'
                         self.fkB.SC5.setBrush(QBrush(Qt.red))
                         #self.sc.SC5.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC5.setSelected(True)
@@ -894,6 +937,7 @@ class MapDisplay(QObject):
                         print('FC5 already selected')
                 elif self.fkB.SC6.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC6.isSelected():
+                        self.fkBselected = 'FkB6'
                         self.fkB.SC6.setBrush(QBrush(Qt.red))
                         #self.sc.SC6.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC6.setSelected(True)
@@ -915,6 +959,7 @@ class MapDisplay(QObject):
                         print('FC6 already selected')
                 elif self.fkB.SC7.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC7.isSelected():
+                        self.fkBselected = 'FkB7'
                         self.fkB.SC7.setBrush(QBrush(Qt.red))
                         #self.sc.SC7.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC7.setSelected(True)
@@ -936,6 +981,7 @@ class MapDisplay(QObject):
                         print('FC7 already selected')
                 elif self.fkB.SC8.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC8.isSelected():
+                        self.fkBselected = 'FkB8'
                         self.fkB.SC8.setBrush(QBrush(Qt.red))
                         # self.sc.SC8.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC8.setSelected(True)
@@ -957,6 +1003,7 @@ class MapDisplay(QObject):
                         print('FC8 already selected')
                 elif self.fkB.SC9.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC9.isSelected():
+                        self.fkBselected = 'FkB9'
                         self.fkB.SC9.setBrush(QBrush(Qt.red))
                         # self.sc.SC9.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC9.setSelected(True)
@@ -978,6 +1025,7 @@ class MapDisplay(QObject):
                         print('FC9 already selected')
                 elif self.fkB.SC10.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC10.isSelected():
+                        self.fkBselected = 'FkB10'
                         self.fkB.SC10.setBrush(QBrush(Qt.red))
                         # self.sc.SC10.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC10.setSelected(True)
@@ -999,6 +1047,7 @@ class MapDisplay(QObject):
                         print('FC10 already selected')
                 elif self.fkB.SC11.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC11.isSelected():
+                        self.fkBselected = 'FkB11'
                         self.fkB.SC11.setBrush(QBrush(Qt.red))
                         # self.sc.SC11.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC11.setSelected(True)
@@ -1020,6 +1069,7 @@ class MapDisplay(QObject):
                         print('FC11 already selected')
                 elif self.fkB.SC12.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC12.isSelected():
+                        self.fkBselected = 'FkB12'
                         self.fkB.SC12.setBrush(QBrush(Qt.red))
                         # self.sc.SC12.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC12.setSelected(True)
@@ -1041,6 +1091,7 @@ class MapDisplay(QObject):
                         print('FC12 already selected')
                 elif self.fkB.SC13.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC13.isSelected():
+                        self.fkBselected = 'FkB13'
                         self.fkB.SC13.setBrush(QBrush(Qt.red))
                         # self.sc.SC13.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC13.setSelected(True)
@@ -1062,6 +1113,7 @@ class MapDisplay(QObject):
                         print('FC13 already selected')
                 elif self.fkB.SC14.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC14.isSelected():
+                        self.fkBselected = 'FkB14'
                         self.fkB.SC14.setBrush(QBrush(Qt.red))
                         # self.sc.SC14.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC14.setSelected(True)
@@ -1083,6 +1135,7 @@ class MapDisplay(QObject):
                         print('FC14 already selected')
                 elif self.fkB.SC15.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC15.isSelected():
+                        self.fkBselected = 'FkB15'
                         self.fkB.SC15.setBrush(QBrush(Qt.red))
                         # self.sc.SC15.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fkB.SC15.setSelected(True)
@@ -1104,6 +1157,7 @@ class MapDisplay(QObject):
                         print('FC15 already selected')
                 else:
                     print('this is outside the triangles, set all to unselected')
+                    self.fkBselected = ''
                     self.fkB.SC1.setSelected(False)
                     self.fkB.SC2.setSelected(False)
                     self.fkB.SC3.setSelected(False)
