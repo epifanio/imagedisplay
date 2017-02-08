@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/epi/PycharmProjects/imagedisplay/htmap/htmap_ui3.ui'
+# Form implementation generated from reading ui file '/Users/epi/PycharmProjects/imagedisplay/htmap/htmap_ui3 copy.ui'
 #
 # Created by: PyQt5 UI code generator 5.7.1
 #
@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         self.webEngineView_map.setSizePolicy(sizePolicy)
         self.webEngineView_map.setCursor(QtGui.QCursor(QtCore.Qt.CrossCursor))
         self.webEngineView_map.setMouseTracking(True)
-        self.webEngineView_map.setUrl(QtCore.QUrl("about:blank"))
+        self.webEngineView_map.setProperty("url", QtCore.QUrl("about:blank"))
         self.webEngineView_map.setObjectName("webEngineView_map")
         self.gridLayout.addWidget(self.webEngineView_map, 0, 0, 1, 1)
         self.verticalLayout_3.addLayout(self.gridLayout)
@@ -90,7 +90,7 @@ class Ui_MainWindow(object):
         self.markerdescriptionScrollArea.setWidgetResizable(True)
         self.markerdescriptionScrollArea.setObjectName("markerdescriptionScrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 160, 296))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 242, 296))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.markerScrollAreaLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.markerScrollAreaLayout.setContentsMargins(0, 0, 0, 0)
@@ -141,11 +141,11 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 242, 331))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 248, 331))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
-        self.verticalLayout_12.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
@@ -180,7 +180,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.horizontalLayout_2.addWidget(self.shepardframeA)
         self.horizontalLayout_3.addLayout(self.horizontalLayout_2)
-        self.verticalLayout_12.addLayout(self.horizontalLayout_3)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_3)
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.folkframeB = QtWidgets.QFrame(self.scrollAreaWidgetContents_2)
@@ -207,7 +209,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.horizontalLayout_4.addWidget(self.folkframeA)
-        self.verticalLayout_12.addLayout(self.horizontalLayout_4)
+        self.horizontalLayout_5.addLayout(self.horizontalLayout_4)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_5)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
         self.verticalLayout_11.addWidget(self.scrollArea)
         self.verticalLayout_6.addWidget(self.splitter_2)
