@@ -16,7 +16,7 @@ class Window(QtWidgets.QMainWindow):
         layout = QtWidgets.QVBoxLayout(widget)
         self.edit = QtWidgets.QLineEdit(self)
         self.web = QWebEngineView()
-        self.web.load(QUrl('file:///Users/epi/pyqtwebtest.html'))
+        self.web.load(QUrl('file:///Users/epi/index.html'))
         self.web.setMouseTracking(True)
         layout.addWidget(self.edit)
         layout.addWidget(self.web)

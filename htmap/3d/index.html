@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <title>3D</title>
+  <script src="./Cesium-1.27/Build/Cesium/Cesium.js"></script>
+  <script src="viewerCesiumNavigationMixin.js"></script>
+  <style>
+      @import url(./Cesium-1.27/Build/Cesium/Widgets/widgets.css);
+      html, body, #cesiumContainer {
+          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+      }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    var viewer = new Cesium.Viewer('cesiumContainer');
+    viewer.infoBox.frame.sandbox = "allow-same-origin allow-top-navigation allow-pointer-lock allow-popups allow-forms allow-scripts";
+    viewer.extend(Cesium.viewerCesiumNavigationMixin, {});
+    // var habcam = viewer.dataSources.add(Cesium.CzmlDataSource.load('line1.czml'));
+	// viewer.trackedEntity = habcam;
+
+
+  </script>
+</body>
+</html>

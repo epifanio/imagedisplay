@@ -1,6 +1,15 @@
 <RCC>
   <qresource prefix="icons">
+    <file>CMECS-5.png</file>
+    <file>CMECS-5.png</file>
     <file>icons/HTML5.png</file>
+    <file>CMECS-1.png</file>
+    <file>CMECS-2.png</file>
+    <file>CMECS-3.png</file>
+    <file>geology-1.png</file>
+    <file>geology-2.png</file>
+    <file>geology-3.png</file>
+    <file>CMECS-4.png</file>
     <file>icons/blumarker.png</file>
   </qresource>
 </RCC>

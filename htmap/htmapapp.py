@@ -90,15 +90,21 @@ class MapDisplay(QObject):
         self.w = HtMapGui()
         self.w.webEngineView_map.installEventFilter(self)
         self.w.webEngineView_map.setObjectName("webEngineView_map")
-        self.w.webEngineView_map.load(QUrl('file:///Users/epi/pyqtwebtest.html'))
+        self.w.webEngineView_map.load(QUrl('http://epinux.com/cesium/Apps/htmap/'))
+        #self.w.webEngineView_map.load(QUrl('http://localhost:9999/2d/'))
+        self.jsmapbackend = 'leaflet'
+        self.w.action2D.triggered.connect(self.load2dmap)
+        self.w.action3D.triggered.connect(self.load3dmap)
         #self.w.actionAddmarker.triggered.connect(self.updatebounds)
         self.w.actionAddmarker.triggered.connect(self.showmarkernote)
+        self.w.actionsedimentclass.triggered.connect(self.showsedimentclass)
         self.w.actionHtmlExport.triggered.connect(self.gethtml)
         #self.w.actionAddmarker.triggered.connect(self.addMarker)
         #self.w.addMarker.clicked.connect(self.updatebounds)
         #self.w.setMouseTracking(True)
         self.w.webEngineView_map.installEventFilter(self)
         self.w.markerBox.hide()
+        self.w.sedimentBox.hide()
         self.w.latitude = QLineEdit()
         self.w.longitude = QLineEdit()
         self.w.latitude.setFixedWidth(140)
@@ -124,7 +130,94 @@ class MapDisplay(QObject):
 
         self.w.increaseCS.clicked.connect(self.increaseCS)
         self.w.decreaseCS.clicked.connect(self.decreaseCS)
+        self.w.hide.clicked.connect(self.hideframes)
+
+        '''
+        self.data = [("Alice", [("Keys", []), ("Purse", [("Cellphone", [])])]),
+                     ("Bob", [("Wallet", [("Credit card", []), ("Money", [])])])
+                     ]
+        self.model = QStandardItemModel()
+        self.addItems(self.model, self.data)
+        self.w.layers.setModel(self.model)
+        '''
+        self.w.layers.setDragDropMode(QAbstractItemView.InternalMove)
+        self.w.layers.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.w.layers.customContextMenuRequested.connect(self.openMenu)
+
+
+        self.layer1 = QTreeWidgetItem(["cities"])
+        self.layer1.setCheckState(0, Qt.Checked)
+        self.layer1.setText(0, 'cities')
+        self.w.layers.addTopLevelItem(self.layer1)
+
+        self.layer2 = QTreeWidgetItem(["caves"])
+        self.layer2.setCheckState(0, Qt.Checked)
+        self.layer2.setText(0, 'caves')
+        self.w.layers.addTopLevelItem(self.layer2)
+
+        self.w.layers.itemChanged.connect(self.handleItemChanged)
+
         self.w.show()
+
+    def hideframes(self):
+        self.w.shepardframeB.hide()
+        self.w.folkframeA.hide()
+        self.w.folkframeB.hide()
+
+    def handleItemChanged(self, item, column):
+        if item.checkState(column) == QtCore.Qt.Checked:
+            print('Item Checked')
+            if self.jsmapbackend == 'leaflet':
+                self.w.webEngineView_map.page().runJavaScript("map.addLayer(%s)" % item.text(0))
+        elif item.checkState(column) == QtCore.Qt.Unchecked:
+            print('Item Unchecked')
+            if self.jsmapbackend == 'leaflet':
+                self.w.webEngineView_map.page().runJavaScript("map.removeLayer(%s)" % item.text(0))
+
+    def checklayer(self):
+        if self.layer1.isChecked():
+            if self.jsmapbackend == 'leaflet':
+                self.w.webEngineView_map.page().runJavaScript("map.addLayer(%s)" % item.text(0))
+        else:
+            if self.jsmapbackend == 'leaflet':
+                self.w.webEngineView_map.page().runJavaScript("lcontrol.removeLayer(%s)" % item.text(0))
+
+    def makedata(self):
+        self.data = [("Alice", [("Keys", []), ("Purse", [("Cellphone", [])])]),
+                 ("Bob", [("Wallet", [("Credit card", []), ("Money", [])])])
+                 ]
+        self.model = QStandardItemModel()
+        self.addItems(self.model, self.data)
+        self.w.layers.setModel(self.model)
+
+    def addItems(self, parent, elements):
+
+        for text, children in elements:
+            item = QStandardItem(text)
+            parent.appendRow(item)
+            if children:
+                self.addItems(item, children)
+
+    def openMenu(self, position):
+        level = 0
+        indexes = self.w.layers.selectedIndexes()
+        if len(indexes) > 0:
+
+            level = 0
+            index = indexes[0]
+            while index.parent().isValid():
+                index = index.parent()
+                level += 1
+
+        menu = QMenu()
+        if level == 0:
+            menu.addAction(self.tr("Edit person"))
+        elif level == 1:
+            menu.addAction(self.tr("Edit object/container"))
+        elif level == 2:
+            menu.addAction(self.tr("Edit object"))
+
+        menu.exec_(self.w.layers.viewport().mapToGlobal(position))
 
     def increaseCS(self):
         self.mp=1.1
@@ -135,7 +228,6 @@ class MapDisplay(QObject):
         self.fkA.drawbuttons(self.mp)
         self.fkB.drawbuttons(self.mp)
 
-
     def decreaseCS(self):
         self.mp=0.9
         #self.fontsize = self.fontsize*self.mp
@@ -144,6 +236,20 @@ class MapDisplay(QObject):
         self.fc.drawbuttons(self.mp)
         self.fkA.drawbuttons(self.mp)
         self.fkB.drawbuttons(self.mp)
+
+    def load3dmap(self):
+        self.w.webEngineView_map.load(QUrl('http://localhost:9999/3d/'))
+        self.jsmapbackend = 'cesium'
+
+    def load2dmap(self):
+        self.w.webEngineView_map.load(QUrl('http://localhost:9999/2d/'))
+        self.jsmapbackend='leaflet'
+
+    def showsedimentclass(self):
+        if self.w.actionsedimentclass.isChecked():
+            self.w.sedimentBox.show()
+        else:
+            self.w.sedimentBox.hide()
 
     def showmarkernote(self):
         if self.w.actionAddmarker.isChecked():
@@ -158,8 +264,12 @@ class MapDisplay(QObject):
             # QtCore.Qt.LeftButton
             # QtCore.Qt.RightButton
             pos = event.pos()
-            self.w.webEngineView_map.page().runJavaScript(
-                "map.containerPointToLatLng(L.point(%s, %s))" % (pos.x(), pos.y()), self.getposition)
+            if self.jsmapbackend=='leaflet':
+                self.w.webEngineView_map.page().runJavaScript(
+                    "map.containerPointToLatLng(L.point(%s, %s))" % (pos.x(), pos.y()), self.getposition)
+            if self.jsmapbackend == 'cesium':
+                self.w.webEngineView_map.page().runJavaScript("var coord = Cesium.Cartographic.fromCartesian(viewer.camera.pickEllipsoid(Cesium.Cartesian2.fromArray([%s, %s]), viewer.scene.globe.ellipsoid));" % (pos.x(), pos.y()))
+                self.w.webEngineView_map.page().runJavaScript("[Cesium.Math.toDegrees(coord.longitude).toFixed(6), Cesium.Math.toDegrees(coord.latitude).toFixed(6)];", self.getposition)
 
             #if event.buttons() == QtCore.Qt.LeftButton:
             #    pos = event.pos()
@@ -184,10 +294,15 @@ class MapDisplay(QObject):
                 cursor = self.w.marker_description.textCursor()
                 print(cursor.selectionStart(), cursor.selectionEnd())
                 text = str(self.w.marker_description.toPlainText()).replace('\n','<br>')
-                self.w.webEngineView_map.page().runJavaScript("L.marker([%s,%s], {icon: greenIcon}).bindPopup('%s').addTo(%s)" % (self.position['lat'],
-                                                                                                               self.position['lng'],
-                                                                                                               text,
-                                                                                                               self.w.marker_type.currentText()))
+                if self.jsmapbackend == 'leaflet':
+                    self.w.webEngineView_map.page().runJavaScript("L.marker([%s,%s], {icon: greenIcon}).bindPopup('%s').addTo(%s)" % (self.position['lat'],
+                                                                                                                   self.position['lng'],
+                                                                                                                   text,
+                                                                                                                   self.w.marker_type.currentText()))
+                if self.jsmapbackend == 'cesium':
+                    self.w.webEngineView_map.page().runJavaScript("var habcam = viewer.dataSources.add(Cesium.CzmlDataSource.load('line1.czml'));")
+                    self.w.webEngineView_map.page().runJavaScript("viewer.trackedEntity = habcam;")
+
         # Handle SC graphic
         if event.type() == QtCore.QEvent.MouseButtonPress and source.objectName() == 'shepardsandgraphicsView':
             print(source.objectName())
@@ -212,7 +327,6 @@ class MapDisplay(QObject):
                         self.sc.SC10.setBrush(QBrush(QColor(255, 100, 100, 100)))
                     else:
                         print('SC1 already selected')
-
                 elif self.sc.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.sc.SC2.isSelected():
                         self.scselected = 'SC2'
@@ -375,7 +489,6 @@ class MapDisplay(QObject):
                         self.sc.SC9.setBrush(QBrush(QColor(50, 0, 100, 100)))
                     else:
                         print('SC10 already selected')
-
                 else:
                     print('this is outside the triangles, set all to unselected')
                     self.scselected = ''
@@ -399,6 +512,8 @@ class MapDisplay(QObject):
                     self.sc.SC8.setBrush(QBrush(QColor(0, 100, 255, 100)))
                     self.sc.SC9.setBrush(QBrush(QColor(50, 0, 100, 100)))
                     self.sc.SC10.setBrush(QBrush(QColor(255, 100, 100, 100)))
+                self.w.marker_description.append(self.scselected)
+
         if event.type() == QtCore.QEvent.MouseButtonPress and source.objectName() == 'shepardgravelgraphicsView':
             pos = event.pos()
             if event.buttons() == QtCore.Qt.LeftButton:
@@ -409,19 +524,16 @@ class MapDisplay(QObject):
                         self.fc.SC1.setBrush(QBrush(Qt.red))
                         #self.sc.SC1.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fc.SC1.setSelected(True)
-
                         self.fc.SC2.setBrush(QBrush(QColor(255, 50, 0, 100)))
                         self.fc.SC3.setBrush(QBrush(QColor(100, 155, 100, 100)))
                     else:
                         print('FC1 already selected')
-
                 elif self.fc.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.fc.SC2.isSelected():
                         self.fcselected = 'FC2'
                         self.fc.SC2.setBrush(QBrush(Qt.red))
                         #self.sc.SC2.setPen(QPen(QBrush(Qt.yellow), 3, Qt.SolidLine))
                         self.fc.SC2.setSelected(True)
-
                         self.fc.SC1.setBrush(QBrush(QColor(156, 101, 0, 100)))
                         self.fc.SC3.setBrush(QBrush(QColor(100, 155, 100, 100)))
                     else:
@@ -446,6 +558,7 @@ class MapDisplay(QObject):
                     self.fc.SC1.setBrush(QBrush(QColor(156, 101, 0, 100)))
                     self.fc.SC2.setBrush(QBrush(QColor(255, 50, 0, 100)))
                     self.fc.SC3.setBrush(QBrush(QColor(100, 155, 100, 100)))
+                self.w.marker_description.append(self.fcselected)
 
         if event.type() == QtCore.QEvent.MouseButtonPress and source.objectName() == 'folkgravelgraphicsView':
             pos = event.pos()
@@ -476,7 +589,6 @@ class MapDisplay(QObject):
 
                     else:
                         print('FC1 already selected')
-
                 elif self.fkA.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkA.SC2.isSelected():
                         self.fkAselected = 'FkA2'
@@ -817,6 +929,7 @@ class MapDisplay(QObject):
                     self.fkA.SC13.setBrush(QBrush(QColor(255, 223, 155, 100)))
                     self.fkA.SC14.setBrush(QBrush(QColor(255, 223, 155, 100)))
                     self.fkA.SC15.setBrush(QBrush(QColor(255, 223, 155, 100)))
+                self.w.marker_description.append(self.fkAselected)
 
         if event.type() == QtCore.QEvent.MouseButtonPress and source.objectName() == 'folksandgraphicsView':
             pos = event.pos()
@@ -847,7 +960,6 @@ class MapDisplay(QObject):
 
                     else:
                         print('FC1 already selected')
-
                 elif self.fkB.SC2.contains(QPointF(pos.x(), pos.y())):
                     if not self.fkB.SC2.isSelected():
                         self.fkBselected = 'FkB2'
@@ -1188,34 +1300,46 @@ class MapDisplay(QObject):
                     self.fkB.SC13.setBrush(QBrush(QColor(255, 223, 155, 100)))
                     self.fkB.SC14.setBrush(QBrush(QColor(255, 223, 155, 100)))
                     self.fkB.SC15.setBrush(QBrush(QColor(255, 223, 155, 100)))
+                self.w.marker_description.append(self.fkBselected)
 
         return QtWidgets.QMainWindow.eventFilter(self, source, event)
 
+    #self.w.marker_description.append(self.scselected)
+    #elf.w.marker_description.append(self.fcselected)
+    #self.w.marker_description.append(self.fkAselected)
+    #self.w.marker_description.append(self.fkBselected)
+
     def updateposition(self):
-        self.w.webEngineView_map.page().runJavaScript("map.containerPointToLatLng(L.point(e.layerPoint.x, e.layerPoint.y))", self.getposition)
+        if self.jsmapbackend == 'leaflet':
+            self.w.webEngineView_map.page().runJavaScript("map.containerPointToLatLng(L.point(e.layerPoint.x, e.layerPoint.y))", self.getposition)
 
     def getposition(self, position):
         self.position = position
         try:
+            if self.jsmapbackend == 'leaflet':
             #self.w.statusbar.showMessage("%s, %s" % (self.position['lat'], self.position['lng']))
-            self.w.latitude.setText(str(self.position['lat']))
-            self.w.longitude.setText(str(self.position['lng']))
+                self.w.latitude.setText(str(self.position['lat']))
+                self.w.longitude.setText(str(self.position['lng']))
+            if self.jsmapbackend == 'cesium':
+                self.w.latitude.setText(str(self.position[1]))
+                self.w.longitude.setText(str(self.position[0]))
         except:
             print("position not set yet")
+            #print(self.position)
 
     def updatebounds(self):
-        self.w.webEngineView_map.page().runJavaScript("[map.getBounds().getSouthWest().lat, \
-                                            map.getBounds().getSouthWest().lng, \
-                                            map.getBounds().getNorthEast().lat, \
-                                            map.getBounds().getNorthEast().lng]",
-                                        self.getbounds)
+        if self.jsmapbackend == 'leaflet':
+            self.w.webEngineView_map.page().runJavaScript("[map.getBounds().getSouthWest().lat, \
+                                                map.getBounds().getSouthWest().lng, \
+                                                map.getBounds().getNorthEast().lat, \
+                                                map.getBounds().getNorthEast().lng]",
+                                            self.getbounds)
 
     def getbounds(self, bounds):
         self.w.marker_description.setText(str(bounds))
         self.bounds = bounds
         self.w.statusbar.showMessage("LL-UR Boundary %s" % self.bounds)
         print(self.bounds)
-
 
     def gethtml(self):
         self.w.webEngineView_map.page().toHtml(self.printsrc)
@@ -1233,7 +1357,6 @@ class MapDisplay(QObject):
 
         #self.w.webEngineView_map.page().runJavaScript("L.marker([%s, %s]).bindPopup('This is Littleton, CO.').addTo(cities)" % (self.w.MarkerLatSpinBox.value(), self.w.MarkerLonSpinBox.value()))
         #print(self.w.MarkerLatSpinBox.value())
-
 
 
 if __name__ == "__main__":

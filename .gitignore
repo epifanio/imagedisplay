@@ -2,6 +2,7 @@
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
+
 *.py[cod]
 *$py.class
 
@@ -99,5 +100,7 @@ histogram.png
 hyspomatric_curve.png
 test.kml
 width_function.png
+.ipynb_checkpoints/
+tmp/
 
 
