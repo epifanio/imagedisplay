@@ -102,5 +102,6 @@ test.kml
 width_function.png
 .ipynb_checkpoints/
 tmp/
+.idea/
 
 
