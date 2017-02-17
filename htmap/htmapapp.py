@@ -90,8 +90,8 @@ class MapDisplay(QObject):
         self.w = HtMapGui()
         self.w.webEngineView_map.installEventFilter(self)
         self.w.webEngineView_map.setObjectName("webEngineView_map")
-        self.w.webEngineView_map.load(QUrl('http://epinux.com/cesium/Apps/htmap/'))
-        #self.w.webEngineView_map.load(QUrl('http://localhost:9999/2d/'))
+        #self.w.webEngineView_map.load(QUrl('http://epinux.com/cesium/Apps/htmap/'))
+        self.w.webEngineView_map.load(QUrl('http://localhost:9999/2d/'))
         self.jsmapbackend = 'leaflet'
         self.w.action2D.triggered.connect(self.load2dmap)
         self.w.action3D.triggered.connect(self.load3dmap)
@@ -111,8 +111,24 @@ class MapDisplay(QObject):
         self.w.longitude.setFixedWidth(140)
         #self.w.latitude.setMaximumSize(QtCore.QSize(140, 0))
         #self.w.longitude.setMaximumSize(QtCore.QSize(140, 0))
+
+
+        #self.statusbarspacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        #self.w.statusbar.addWidget(self.statusbarspacer, stretch=1)
+        self.displaytype = QtWidgets.QComboBox()
+        self.displaytype.setObjectName("marker_type")
+        self.displaytype.addItem("2D")
+        self.displaytype.addItem("3D")
+        print(self.w.statusbar.width())
+        #self.displaytype.setGeometry((self.w.statusbar.width() - 100) / 2, (self.w.statusbar.height() - 100) / 2, 100, 100)
         self.w.statusbar.addPermanentWidget(self.w.latitude, stretch=0)
         self.w.statusbar.addPermanentWidget(self.w.longitude, stretch=0)
+        self.w.statusbar.addWidget(self.displaytype, stretch=0)
+        #self.displaytype.setGeometry()
+
+
+        #self.w.statusbar.addPermanentWidget(self.w.longitude, stretch=0)
+
         self.mp = 1
         self.fontsize = 6
 
@@ -156,8 +172,38 @@ class MapDisplay(QObject):
         self.w.layers.addTopLevelItem(self.layer2)
 
         self.w.layers.itemChanged.connect(self.handleItemChanged)
+        self.displaytype.currentIndexChanged.connect(self.switchcanvas)
+        self.mapcenter = [0,0]
 
         self.w.show()
+
+    def switchcanvas(self):
+        if self.displaytype.currentText()=='2D':
+            self.updatemapcenter()
+            self.load2dmap()
+        if self.displaytype.currentText() == '3D':
+            self.updatemapcenter()
+            self.load3dmap()
+
+
+    def updatemapcenter(self):
+        if self.jsmapbackend == 'leaflet':
+            self.w.webEngineView_map.page().runJavaScript("[map.getCenter().lat, \
+                                                map.getCenter().lng]",
+                                            self.getmapcenter)
+        if self.jsmapbackend == 'cesium':
+            self.w.webEngineView_map.page().runJavaScript(
+                "var coord = Cesium.Cartographic.fromCartesian(viewer.camera.pickEllipsoid(Cesium.Cartesian2.fromArray([%s, %s]), viewer.scene.globe.ellipsoid));" % (
+                    self.w.webEngineView_map.width() / 2.0, self.w.webEngineView_map.height()/2.0))
+            self.w.webEngineView_map.page().runJavaScript(
+                "[Cesium.Math.toDegrees(coord.longitude).toFixed(6), Cesium.Math.toDegrees(coord.latitude).toFixed(6)];", self.getmapcenter)
+
+    def getmapcenter(self, mapcenter):
+        self.mapcenter = [float(i) for i in mapcenter]
+        print(self.mapcenter)
+
+    def resizeEvent(self, event):
+        self.displaytype.setGeometry((self.w.statusbar.width() - 100) / 2, (self.w.statusbar.height() - 100) / 2, 100, 100)
 
     def hideframes(self):
         self.w.shepardframeB.hide()
@@ -1308,6 +1354,22 @@ class MapDisplay(QObject):
     #elf.w.marker_description.append(self.fcselected)
     #self.w.marker_description.append(self.fkAselected)
     #self.w.marker_description.append(self.fkBselected)
+
+
+    def openogr(self):
+        # open file dialog
+        # check if it is an ogr compatible dataset
+        # extract the layer name if any, or assign filename
+        # load feature and return czml, and/or geojson
+        # populate a layer dictionary with following key
+        # layer name
+        # data path
+        # data type (point, line, polygon)
+        # layer statistics (empty metadict)
+        # style (empty metadict)
+        #
+        return
+
 
     def updateposition(self):
         if self.jsmapbackend == 'leaflet':

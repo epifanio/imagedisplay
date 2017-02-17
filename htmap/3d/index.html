@@ -5,24 +5,62 @@
   <!-- Use correct character set. -->
   <meta charset="utf-8">
   <title>3D</title>
-  <script src="./Cesium-1.27/Build/Cesium/Cesium.js"></script>
+  <script src="./Cesium-1.30/Build/Cesium/Cesium.js"></script>
   <script src="viewerCesiumNavigationMixin.js"></script>
   <style>
-      @import url(./Cesium-1.27/Build/Cesium/Widgets/widgets.css);
+      @import url(./Cesium-1.30/Build/Cesium/Widgets/widgets.css);
+      #TopOne{
+           position: absolute;
+           top:50%;
+           left:50%;
+           color:rgba(255,0,0,250);
+           background-color:rgba(255,0,0,0);
+           padding:0px;
+           font-size: 200%;
+           }
       html, body, #cesiumContainer {
           width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+          position: absolute;  z-index: -1;
       }
+
   </style>
 </head>
 <body>
   <div id="cesiumContainer"></div>
+  <div id="TopOne">+</div>
   <script>
+
     var viewer = new Cesium.Viewer('cesiumContainer');
-    viewer.infoBox.frame.sandbox = "allow-same-origin allow-top-navigation allow-pointer-lock allow-popups allow-forms allow-scripts";
+    //viewer.infoBox.frame.sandbox = "allow-same-origin allow-top-navigation allow-pointer-lock allow-popups allow-forms allow-scripts";
     viewer.extend(Cesium.viewerCesiumNavigationMixin, {});
     // var habcam = viewer.dataSources.add(Cesium.CzmlDataSource.load('line1.czml'));
 	// viewer.trackedEntity = habcam;
 
+    var camera = viewer.camera;
+
+    document.addEventListener('keydown', function(e) {
+        setKey(e);
+    }, false);
+
+    function setKey(event) {
+        var horizontalDegrees = 10.0;
+        var verticalDegrees = 10.0;
+        var viewRect = camera.computeViewRectangle();
+        if (Cesium.defined(viewRect)) {
+            horizontalDegrees *= Cesium.Math.toDegrees(viewRect.east - viewRect.west) / 360.0;
+            verticalDegrees *= Cesium.Math.toDegrees(viewRect.north - viewRect.south) / 180.0;
+        }
+
+        if (event.keyCode === 39) {  // right arrow
+            camera.rotateRight(Cesium.Math.toRadians(horizontalDegrees));
+        } else if (event.keyCode === 37) {  // left arrow
+            camera.rotateLeft(Cesium.Math.toRadians(horizontalDegrees));
+        } else if (event.keyCode === 40) {  // up arrow
+            camera.rotateUp(Cesium.Math.toRadians(verticalDegrees));
+        } else if (event.keyCode === 38) {  // down arrow
+            camera.rotateDown(Cesium.Math.toRadians(verticalDegrees));
+        }
+    }
 
   </script>
 </body>
