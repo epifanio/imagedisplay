@@ -30,7 +30,7 @@ import json
 #    DrawControl
 #)
 
-from htmap.htmapapp import MapDisplay
+#from htmap.htmapapp import MapDisplay
 
 class ImageDisplay(QObject):
     def init(self):
