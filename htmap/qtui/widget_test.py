@@ -1,0 +1,92 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file '/Users/epi/PycharmProjects/imagedisplay/htmap/qtui/widget_test.ui'
+#
+# Created by: PyQt5 UI code generator 5.7.1
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(395, 408)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.commandlabel = QtWidgets.QLabel(self.centralwidget)
+        self.commandlabel.setObjectName("commandlabel")
+        self.horizontalLayout.addWidget(self.commandlabel)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.param_type = QtWidgets.QLabel(self.centralwidget)
+        self.param_type.setObjectName("param_type")
+        self.horizontalLayout.addWidget(self.param_type)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox.setObjectName("groupBox")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.groupBox)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.r1 = QtWidgets.QRadioButton(self.groupBox)
+        self.r1.setObjectName("r1")
+        self.horizontalLayout_2.addWidget(self.r1)
+        self.r2 = QtWidgets.QRadioButton(self.groupBox)
+        self.r2.setObjectName("r2")
+        self.horizontalLayout_2.addWidget(self.r2)
+        self.r3 = QtWidgets.QRadioButton(self.groupBox)
+        self.r3.setObjectName("r3")
+        self.horizontalLayout_2.addWidget(self.r3)
+        self.r4 = QtWidgets.QRadioButton(self.groupBox)
+        self.r4.setObjectName("r4")
+        self.horizontalLayout_2.addWidget(self.r4)
+        self.verticalLayout.addWidget(self.groupBox)
+        self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.groupBox_2)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.file_label = QtWidgets.QLabel(self.groupBox_2)
+        self.file_label.setObjectName("file_label")
+        self.horizontalLayout_3.addWidget(self.file_label)
+        self.filetext = QtWidgets.QLineEdit(self.groupBox_2)
+        self.filetext.setObjectName("filetext")
+        self.horizontalLayout_3.addWidget(self.filetext)
+        self.fileload = QtWidgets.QPushButton(self.groupBox_2)
+        self.fileload.setObjectName("fileload")
+        self.horizontalLayout_3.addWidget(self.fileload)
+        self.horizontalLayout_4.addLayout(self.horizontalLayout_3)
+        self.verticalLayout.addWidget(self.groupBox_2)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 395, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.commandlabel.setToolTip(_translate("MainWindow", "here goes the command description"))
+        self.commandlabel.setText(_translate("MainWindow", "Command Label"))
+        self.param_type.setText(_translate("MainWindow", "(Param_name=type)"))
+        self.groupBox.setTitle(_translate("MainWindow", "Source Type"))
+        self.r1.setText(_translate("MainWindow", "R1"))
+        self.r2.setText(_translate("MainWindow", "R2"))
+        self.r3.setText(_translate("MainWindow", "R3"))
+        self.r4.setText(_translate("MainWindow", "R4"))
+        self.groupBox_2.setTitle(_translate("MainWindow", "Source Input"))
+        self.file_label.setText(_translate("MainWindow", "File"))
+        self.fileload.setText(_translate("MainWindow", "Browse"))
+
